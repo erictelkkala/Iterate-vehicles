@@ -2,8 +2,6 @@ import * as React from 'react';
 import { View, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import fetchData from './components/Printfish';
-import AddFish from './components/Insertfish';
 
 function HomeScreen({ navigation }) {
 	return (
@@ -17,19 +15,18 @@ function HomeScreen({ navigation }) {
 		>
 			<Button
 				style={{ marginBottom: 10 }}
-				title='Add Fishy'
+				title='Add hy'
 				onPress={() => navigation.navigate('Add Fish')}
 			/>
-			<View>{fetchData()}</View>
 		</View>
 	);
 }
 
 function AddFishyScreen() {
 	return (
-		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-			<AddFish></AddFish>
-		</View>
+		<View
+			style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+		></View>
 	);
 }
 
