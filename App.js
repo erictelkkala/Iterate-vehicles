@@ -2,6 +2,10 @@ import * as React from 'react';
 import { View, Text, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+	ActivityIndicator,
+	Provider as PaperProvider,
+} from 'react-native-paper';
 
 function HomeScreen({ navigation }) {
 	return (
@@ -13,11 +17,7 @@ function HomeScreen({ navigation }) {
 				marginTop: 50,
 			}}
 		>
-			<Button
-				style={{ marginBottom: 10 }}
-				title='Add hy'
-				onPress={() => navigation.navigate('Add Fish')}
-			/>
+			<ActivityIndicator animating={true} />
 		</View>
 	);
 }
