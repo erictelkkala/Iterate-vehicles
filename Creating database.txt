@@ -13,7 +13,7 @@ create table if not exists info
 	motorcycles int not null,
 	SessionID int not null,
 	UserID int not null,
-	Date datetime not null,
+	Date varchar(255) not null,
 	longitude float not null, 
 	latitude float not null);
 
