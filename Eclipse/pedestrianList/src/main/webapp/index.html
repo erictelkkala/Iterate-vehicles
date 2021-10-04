@@ -5,43 +5,37 @@
 	content="application/xhtml+xml; charset=UTF-8" />
 <title>Hello App Engine</title>
 <script>
-    function sendData(fishform){
-    	var fish=new Object();
-    	fish.breed=fishform.breed.value;
-    	fish.weight=fishform.weight.value;
+    function sendData(infoform){
+    	var info=new Object();
+    	Info.pedestrian=infoform.pedestrian.value;
     	
-    	var x=JSON.stringify(fish);
+    	
+    	var x=JSON.stringify(info);
     	
     	xmlhttp = new XMLHttpRequest();
     	xmlhttp.onreadystatechange = function() {
     	  if (this.readyState == 4 && this.status == 200) {
     	    document.getElementById("result").innerHTML = this.responseText;
-    	    var d=JSON.
+    	    var d=JSON
     	  }
     	};
-    	xmlhttp.open("POST", "./rest/fishservice/addjsonfish", true);
+    	xmlhttp.open("POST", "./rest/counterservice/addjsonfish", true);
 //    	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     	xmlhttp.setRequestHeader("Content-type", "application/json");
 //    	xmlhttp.send("person=" + x);	
     	xmlhttp.send(x);    	
     }
+   
     </script>
 </head>
 
 <body>
 	<h1>Hello App Engine!</h1>
 
-	<h2>Form parameters</h2>
-	<form action='./rest/fishservice/addfish' method='post'>
-		Breed: <input type='text' name='breed' value=''><br>
-		Weight: <input type='text' name='weight' value=''><br> <input
-			type='submit' name='ok' value='OK'><br>
-	</form>
-
 	<h2>JSON String</h2>
-	<form action='./rest/fishservice/addjsonfish' method='post'>
-		Breed: <input type='text' name='breed' value=''><br>
-		Weight: <input type='text' name='weight' value=''><br> <input
+	<form action='./rest/counterservice/addjsonfish' method='post'>
+		Test: <input type='number' name='pedestrian' value=''><br>
+		<br> <input
 			type='button' name='ok' value='OK' onclick="sendData(this.form);"><br>
 	</form>
 	<p id='result'>The result comes here</p>
