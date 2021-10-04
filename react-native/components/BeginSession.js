@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import {Alert,  Text, View, StyleSheet, Dimensions, ActivityIndicator} from 'react-native';
+import React, { useState } from 'react';
+import {View, StyleSheet} from 'react-native';
 import { Avatar, Button, IconButton } from 'react-native-paper';
-
-
 
 export function printCount() {
     return tries;
@@ -88,7 +86,7 @@ export default function BeginSession() {
                 <IconButton style={styles.iconRight} size={50} color="grey" icon="dump-truck" onPress={()=>{truckGuess('higher')}}></IconButton>
             </View>
             <View>
-                <Button icon="close-box" mode="contained" onPress={() => navigation.navigate('View Sessions')}>
+                <Button style={{marginTop: 50}} icon="close-box" mode="contained" onPress={() => navigation.navigate('View Sessions')}>
                     Save and exit
                 </Button>
             </View>
@@ -97,6 +95,7 @@ export default function BeginSession() {
     );
 
 };
+
 const styles = StyleSheet.create({
     container: {
         paddingTop: 20,
@@ -105,16 +104,12 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     iconLeft:{
-//Centered horizontally
         alignSelf: "center"
     },
     iconRight:{
-     //Centered horizontally
         alignSelf: "center"
     },
     counter:{
         alignSelf:"center"
           },
-}
-
-)
+})

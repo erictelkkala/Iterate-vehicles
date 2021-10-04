@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {Alert,  Text, View, StyleSheet, Dimensions, ActivityIndicator, Button} from 'react-native';
+import {Alert, View, StyleSheet, Dimensions, ActivityIndicator} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import * as Location from 'expo-location';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+import { Button } from 'react-native-paper';
 import * as Permissions from 'expo-permissions';
-import BeginSession from "./BeginSession";
 
 let near='';
 
@@ -72,11 +71,11 @@ export default function StartSessionsScreen() {
       <View style={styles.dataView}>
       {pickedLocation ? 
           <View>
-            <Button title='Get Location' onPress={getLocationHandler} />
+            <Button mode="contained" onPress={getLocationHandler}>Get Location</Button>
           </View> : 
-          <Button title='Get Location' onPress={getLocationHandler} />
+          <Button mode="contained" onPress={getLocationHandler}>Get Location</Button>
       }
-      <Button title='Begin' onPress={() => navigation.navigate('Begin Session')}/>
+      <Button style={{marginTop: 20}} mode="contained" onPress={() => navigation.navigate('Begin Session')}>Begin</Button>
       </View>
       <View style={styles.mapView}>
         {pickedLocation ?
@@ -105,10 +104,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   dataView:{
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     flex:1, 
-    width:'100%',
-    borderWidth:2,
-    borderColor:'red',
   },
   mapView:{
     flex:2, 

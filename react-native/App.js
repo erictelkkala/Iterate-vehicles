@@ -3,10 +3,6 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button } from 'react-native-paper';
-import {
-	ActivityIndicator,
-	Provider as PaperProvider,
-} from 'react-native-paper';
 import StartSessionsScreen from './components/Session';
 import BeginSession from './components/BeginSession';
 
@@ -25,7 +21,7 @@ function HomeScreen({ navigation }) {
 			<Button icon="arrow-right-circle" mode="contained" onPress={() => navigation.navigate('Start Session')}>
     			Start session
 			</Button>
-			<Button icon="border-color" mode="contained" onPress={() => navigation.navigate('View Sessions')}>
+			<Button style={{marginTop: 20}} icon="border-color" mode="contained" onPress={() => navigation.navigate('View Sessions')}>
     			Previous sessions
 			</Button>
 		</View>
