@@ -1,14 +1,19 @@
 import * as React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Button } from 'react-native-paper';
 import {
 	ActivityIndicator,
 	Provider as PaperProvider,
 } from 'react-native-paper';
+import StartSessionsScreen from './components/Session';
+import BeginSession from './components/BeginSession';
 
 function HomeScreen({ navigation }) {
 	return (
+
+
 		<View
 			style={{
 				flex: 1,
@@ -17,12 +22,17 @@ function HomeScreen({ navigation }) {
 				marginTop: 50,
 			}}
 		>
-			<ActivityIndicator animating={true} />
+			<Button icon="camera" mode="contained" onPress={() => navigation.navigate('Start Session')}>
+    			Start session
+			</Button>
+			<Button icon="camera" mode="contained" onPress={() => navigation.navigate('View Sessions')}>
+    			Previous sessions
+			</Button>
 		</View>
 	);
 }
 
-function AddFishyScreen() {
+function ViewSessionsScreen() {
 	return (
 		<View
 			style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
@@ -37,7 +47,9 @@ function App() {
 		<NavigationContainer>
 			<Stack.Navigator initialRouteName='Home'>
 				<Stack.Screen name='Home' component={HomeScreen} />
-				<Stack.Screen name='Add Fish' component={AddFishyScreen} />
+				<Stack.Screen name='Start Session' component={StartSessionsScreen} />
+				<Stack.Screen name='View Sessions' component={ViewSessionsScreen} />
+				<Stack.Screen name='Begin Session' component={BeginSession} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
