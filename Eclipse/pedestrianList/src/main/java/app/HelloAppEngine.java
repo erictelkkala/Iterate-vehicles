@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.utils.SystemProperty;
 
 import conn.Connections;
-import data.Fish;
+
+import data.Info;
 
 @WebServlet(
     name = "HelloAppEngine",
@@ -42,7 +43,7 @@ public class HelloAppEngine extends HttpServlet {
 	    
 	    
 	    
-	    ArrayList<Fish> fishlist=new ArrayList<>();
+	    ArrayList<Info> infolist=new ArrayList<>();
 		util.HTML.printStart(out);
 	    Connection conn=null;
 	    if (SystemProperty.environment.value() ==SystemProperty.Environment.Value.Production) {  
@@ -69,17 +70,24 @@ public class HelloAppEngine extends HttpServlet {
 				ResultSet RS=stmt.executeQuery("select * from fish");
 				
 				while (RS.next()) {
-					Fish f=new Fish();
+					Info f=new Info();
 					f.setId(RS.getInt("id"));
-					f.setBreed(RS.getString("breed"));
-					f.setWeight(RS.getString("weight"));
-					//f.setLength(RS.getString("length"));
-					//f.setCity(RS.getString("city"));
-					//f.setWater(RS.getString("water"));
-					fishlist.add(f);
+					f.setPedestrians(RS.getInt("pedestrians"));
+					f.setCar(RS.getInt("car"));
+					f.setCyclist(RS.getInt("cyclist"));
+					f.setBus(RS.getInt("bus"));
+					f.setTrucks(RS.getInt("trucks"));
+					f.setScooters(RS.getInt("scooters"));
+					f.setMotorcycles(RS.getInt("motorcycles"));
+					f.setSessionId(RS.getInt("SessionID"));
+					f.setUserId(RS.getInt("UserID"));
+					f.setDate(RS.getString("Date"));
+					f.setLongitude(RS.getFloat("longitude"));
+					f.setLatitude(RS.getFloat("latitude"));
+					infolist.add(f);
 				}
 				conn.close();
-				util.HTML.printTable(out, fishlist);
+				util.HTML.printTable(out, infolist);
 	    	}
 	    	else {
 	    		out.println("No connection to database!");
