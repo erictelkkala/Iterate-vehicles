@@ -18,10 +18,10 @@ function HomeScreen({ navigation }) {
 				marginTop: 50,
 			}}
 		>
-			<Button icon="arrow-right-circle" mode="contained" onPress={() => navigation.navigate('Start Session')}>
+			<Button icon="arrow-right-circle" style={{ width: 175, height: 60 }} contentStyle={{ marginTop: 10 }} mode="contained" onPress={() => navigation.navigate('Start Session')}>
     			Start session
 			</Button>
-			<Button style={{marginTop: 20}} icon="border-color" mode="contained" onPress={() => navigation.navigate('View Sessions')}>
+			<Button style={{marginTop: 20, width: 220, height: 60}} contentStyle={{ marginTop: 10 }} icon="border-color" mode="contained" onPress={() => navigation.navigate('View Sessions')}>
     			Previous sessions
 			</Button>
 		</View>

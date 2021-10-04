@@ -85,8 +85,8 @@ export default function BeginSession() {
                 <Avatar.Text style={styles.counter} size={70} label={truckCount}></Avatar.Text>
                 <IconButton style={styles.iconRight} size={50} color="grey" icon="dump-truck" onPress={()=>{truckGuess('higher')}}></IconButton>
             </View>
-            <View>
-                <Button style={{marginTop: 50}} icon="close-box" mode="contained" onPress={() => navigation.navigate('View Sessions')}>
+            <View style={styles.container}>
+                <Button style={{marginTop: 50, width: 300, height: 60}} contentStyle={{ marginTop: 10 }} icon="close-box" mode="contained" onPress={() => navigation.navigate('View Sessions')}>
                     Save and exit
                 </Button>
             </View>

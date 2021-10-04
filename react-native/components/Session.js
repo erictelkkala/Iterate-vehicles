@@ -71,11 +71,11 @@ export default function StartSessionsScreen() {
       <View style={styles.dataView}>
       {pickedLocation ? 
           <View>
-            <Button mode="contained" onPress={getLocationHandler}>Get Location</Button>
+            <Button mode="contained" style={{ width: 170, height: 60 }} contentStyle={{ marginTop: 10 }} onPress={getLocationHandler}>Get Location</Button>
           </View> : 
-          <Button mode="contained" onPress={getLocationHandler}>Get Location</Button>
+          <Button mode="contained" style={{ width: 170, height: 60 }} contentStyle={{ marginTop: 10 }} onPress={getLocationHandler}>Get Location</Button>
       }
-      <Button style={{marginTop: 20}} mode="contained" onPress={() => navigation.navigate('Begin Session')}>Begin</Button>
+      <Button style={{marginTop: 20, width: 170, height: 60}} contentStyle={{ marginTop: 10 }} mode="contained" onPress={() => navigation.navigate('Begin Session')}>Begin</Button>
       </View>
       <View style={styles.mapView}>
         {pickedLocation ?
@@ -100,7 +100,7 @@ export default function StartSessionsScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop:30,
+    marginTop:1,
     flex: 1,
   },
   dataView:{
@@ -112,13 +112,11 @@ const styles = StyleSheet.create({
   mapView:{
     flex:2, 
     width:'100%',
-    borderWidth:2,
-    borderColor:'red',
   },
   mapStyle: {
-    // width: '100%',
+    width: '100%',
     height: '90%',
     width: Dimensions.get('window').width,
-    // height: Dimensions.get('window').height-250,
+    height: Dimensions.get('window').height-250,
   },
 });
