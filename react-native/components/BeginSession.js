@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {Alert,  Text, View, StyleSheet, Dimensions, ActivityIndicator} from 'react-native';
-import { Avatar, IconButton } from 'react-native-paper';
+import { Avatar, Button, IconButton } from 'react-native-paper';
 
 
 
@@ -30,31 +30,31 @@ export default function BeginSession() {
 
 	return (
         <View>
-        <View style={styles.container}>
-        <IconButton style={styles.iconLeft} size={30} color="grey" icon="moped"onPress={()=>{nextGuess('lower')}}></IconButton>
-        <Avatar.Text style={styles.counter} size={70} label={count}></Avatar.Text>
-        <IconButton style={styles.iconRight} size={50} color="grey" icon="moped" onPress={()=>{nextGuess('higher')}}></IconButton>
-        </View>
-        <View style={styles.container}>
-        <IconButton style={styles.iconLeft} size={30} color="grey" icon="moped"onPress={()=>{nextGuess('lower')}}></IconButton>
-        <Avatar.Text style={styles.counter} size={70} label={count}></Avatar.Text>
-        <IconButton style={styles.iconRight} size={50} color="grey" icon="moped" onPress={()=>{nextGuess('higher')}}></IconButton>
-        </View>
-        <View style={styles.container}>
-        <IconButton style={styles.iconLeft} size={30} color="grey" icon="moped"onPress={()=>{nextGuess('lower')}}></IconButton>
-        <Avatar.Text style={styles.counter} size={70} label={count}></Avatar.Text>
-        <IconButton style={styles.iconRight} size={50} color="grey" icon="moped" onPress={()=>{nextGuess('higher')}}></IconButton>
-        </View>
-        <View style={styles.container}>
-        <IconButton style={styles.iconLeft} size={30} color="grey" icon="moped"onPress={()=>{nextGuess('lower')}}></IconButton>
-        <Avatar.Text style={styles.counter} size={70} label={count}></Avatar.Text>
-        <IconButton style={styles.iconRight} size={50} color="grey" icon="moped" onPress={()=>{nextGuess('higher')}}></IconButton>
-        </View>
-        <View style={styles.container}>
-        <IconButton style={styles.iconLeft} size={30} color="grey" icon="moped"onPress={()=>{nextGuess('lower')}}></IconButton>
-        <Avatar.Text style={styles.counter} size={70} label={count}></Avatar.Text>
-        <IconButton style={styles.iconRight} size={50} color="grey" icon="moped" onPress={()=>{nextGuess('higher')}}></IconButton>
-        </View>
+            <View style={styles.container}>
+                <IconButton style={styles.iconLeft} size={30} color="grey" icon="moped"onPress={()=>{nextGuess('lower')}}></IconButton>
+                <Avatar.Text style={styles.counter} size={70} label={count}></Avatar.Text>
+                <IconButton style={styles.iconRight} size={50} color="grey" icon="moped" onPress={()=>{nextGuess('higher')}}></IconButton>
+            </View>
+            <View style={styles.container}>
+                <IconButton style={styles.iconLeft} size={30} color="grey" icon="moped"onPress={()=>{nextGuess('lower')}}></IconButton>
+                <Avatar.Text style={styles.counter} size={70} label={count}></Avatar.Text>
+                <IconButton style={styles.iconRight} size={50} color="grey" icon="moped" onPress={()=>{nextGuess('higher')}}></IconButton>
+            </View>
+                <View style={styles.container}>
+                <IconButton style={styles.iconLeft} size={30} color="grey" icon="moped"onPress={()=>{nextGuess('lower')}}></IconButton>
+                <Avatar.Text style={styles.counter} size={70} label={count}></Avatar.Text>
+                <IconButton style={styles.iconRight} size={50} color="grey" icon="moped" onPress={()=>{nextGuess('higher')}}></IconButton>
+            </View>
+                <View style={styles.container}>
+                <IconButton style={styles.iconLeft} size={30} color="grey" icon="moped"onPress={()=>{nextGuess('lower')}}></IconButton>
+                <Avatar.Text style={styles.counter} size={70} label={count}></Avatar.Text>
+                <IconButton style={styles.iconRight} size={50} color="grey" icon="moped" onPress={()=>{nextGuess('higher')}}></IconButton>
+            </View>
+            <View>
+                <Button icon="camera" mode="contained" onPress={() => navigation.navigate('View Sessions')}>
+                    Previous sessions
+                </Button>
+            </View>
         </View>
         
     );
