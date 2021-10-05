@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Avatar, Button, IconButton } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 export function printCount() {
 	return tries;
@@ -11,6 +12,7 @@ export function clearCount() {
 }
 
 export default function BeginSession() {
+    const navigation = useNavigation();
 	const [carCount, setcarCount] = useState(0);
 	const [mopedCount, setmopedCount] = useState(0);
 	const [busCount, setbusCount] = useState(0);

@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button } from 'react-native-paper';
 import StartSessionsScreen from './components/Session';
 import BeginSession from './components/BeginSession';
+import ViewSessionsScreen from './components/ViewSessions';
 
 function HomeScreen({ navigation }) {
 	return (
@@ -35,14 +36,6 @@ function HomeScreen({ navigation }) {
 				Previous sessions
 			</Button>
 		</View>
-	);
-}
-
-function ViewSessionsScreen() {
-	return (
-		<View
-			style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
-		></View>
 	);
 }
 
