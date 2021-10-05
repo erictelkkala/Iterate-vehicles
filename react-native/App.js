@@ -8,8 +8,6 @@ import BeginSession from './components/BeginSession';
 
 function HomeScreen({ navigation }) {
 	return (
-
-
 		<View
 			style={{
 				flex: 1,
@@ -18,11 +16,23 @@ function HomeScreen({ navigation }) {
 				marginTop: 50,
 			}}
 		>
-			<Button icon="arrow-right-circle" style={{ width: 175, height: 60 }} contentStyle={{ marginTop: 10 }} mode="contained" onPress={() => navigation.navigate('Start Session')}>
-    			Start session
+			<Button
+				icon="arrow-right-circle"
+				style={{ width: 175, height: 60 }}
+				contentStyle={{ marginTop: 10 }}
+				mode="contained"
+				onPress={() => navigation.navigate('Start Session')}
+			>
+				Start session
 			</Button>
-			<Button style={{marginTop: 20, width: 220, height: 60}} contentStyle={{ marginTop: 10 }} icon="border-color" mode="contained" onPress={() => navigation.navigate('View Sessions')}>
-    			Previous sessions
+			<Button
+				style={{ marginTop: 20, width: 220, height: 60 }}
+				contentStyle={{ marginTop: 10 }}
+				icon="border-color"
+				mode="contained"
+				onPress={() => navigation.navigate('View Sessions')}
+			>
+				Previous sessions
 			</Button>
 		</View>
 	);
@@ -41,11 +51,11 @@ const Stack = createNativeStackNavigator();
 function App() {
 	return (
 		<NavigationContainer>
-			<Stack.Navigator initialRouteName='Home'>
-				<Stack.Screen name='Home' component={HomeScreen} />
-				<Stack.Screen name='Start Session' component={StartSessionsScreen} />
-				<Stack.Screen name='View Sessions' component={ViewSessionsScreen} />
-				<Stack.Screen name='Begin Session' component={BeginSession} />
+			<Stack.Navigator initialRouteName="Home">
+				<Stack.Screen name="Home" component={HomeScreen} />
+				<Stack.Screen name="Start Session" component={StartSessionsScreen} />
+				<Stack.Screen name="View Sessions" component={ViewSessionsScreen} />
+				<Stack.Screen name="Begin Session" component={BeginSession} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	);
