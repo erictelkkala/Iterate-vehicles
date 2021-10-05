@@ -86,3 +86,21 @@ export const fetchAllInfo = () => {
 	});
 	return promise;
 };
+export const fetchAllInfoBasedOnUser = (UserID) => {
+	const promise = new Promise((resolve, reject) => {
+		db.transaction((tx) => {
+			//Here we select all from the table infoTemp based on UserID
+			tx.executeSql(
+				'select * from infoTemp where UserID=?;',
+				[],
+				(tx, result) => {
+					resolve(result);
+				},
+				(tx, err) => {
+					reject(err);
+				}
+			);
+		});
+	});
+	return promise;
+};
