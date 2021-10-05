@@ -12,6 +12,8 @@ npm-debug.*
 web-build/
 build
 coverage
+package-lock.*
+package.*
 
 
 # macOS
