@@ -9,7 +9,7 @@ export const init = () => {
 		db.transaction((tx) => {
 			//By default, primary key is auto_incremented - we do not add anything to that column
 			tx.executeSql(
-				'create table if not exists infoTemp (ID int primary key auto_increment not null, car int not null, bus int not null, trucks int not null, motorcycles int not null, SessionID int not null, UserID int not null, Date varchar(255) not null, longitude float not null,  latitude float not null);',
+				'create table if not exists infoTemp (ID integer primary key autoincrement not null, car integer not null, bus integer not null, trucks integer not null, motorcycles integer not null, SessionID integer not null, UserID integer not null, Date text not null, longitude real not null,  latitude real not null);',
 				//second parameters of execution:empty brackets - this parameter is not needed when creating table
 				[],
 				//If the transaction succeeds, this is called

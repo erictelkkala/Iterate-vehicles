@@ -6,6 +6,14 @@ import { Button, IconButton, Colors } from 'react-native-paper'
 import StartSessionsScreen from './components/Session'
 import BeginSession from './components/BeginSession'
 import ViewSessionsScreen from './components/ViewSessions'
+import {init} from './database/db';
+
+init()
+.then(()=>{
+    console.log('Database creation succeeded!');
+}).catch((err)=>{
+  console.log('Database IS NOT initialized! '+err);
+});
 
 function HomeScreen({ navigation }) {
   return (
