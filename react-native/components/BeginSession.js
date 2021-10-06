@@ -1,63 +1,63 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
-import { Avatar, Button, IconButton } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from 'react'
+import { View, StyleSheet } from 'react-native'
+import { Avatar, Button, IconButton } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
 
 export function printCount() {
-  return tries;
+  return tries
 }
 
 export function clearCount() {
-  tries = 0;
+  tries = 0
 }
 
 export default function BeginSession() {
-  const navigation = useNavigation();
-  const [carCount, setcarCount] = useState(0);
-  const [mopedCount, setmopedCount] = useState(0);
-  const [busCount, setbusCount] = useState(0);
-  const [truckCount, settruckCount] = useState(0);
+  const navigation = useNavigation()
+  const [carCount, setcarCount] = useState(0)
+  const [mopedCount, setmopedCount] = useState(0)
+  const [busCount, setbusCount] = useState(0)
+  const [truckCount, settruckCount] = useState(0)
 
   const carGuess = (direction) => {
-    if (direction == "lower") {
-      setcarCount((carCount) => carCount - 1);
+    if (direction == 'lower') {
+      setcarCount((carCount) => carCount - 1)
       if (carCount == 0) {
-        setcarCount((carCount) => 0);
+        setcarCount((carCount) => 0)
       }
     } else {
-      setcarCount((carCount) => carCount + 1);
+      setcarCount((carCount) => carCount + 1)
     }
-  };
+  }
   const mopedGuess = (direction) => {
-    if (direction == "lower") {
-      setmopedCount((mopedCount) => mopedCount - 1);
+    if (direction == 'lower') {
+      setmopedCount((mopedCount) => mopedCount - 1)
       if (mopedCount == 0) {
-        setmopedCount((mopedCount) => 0);
+        setmopedCount((mopedCount) => 0)
       }
     } else {
-      setmopedCount((mopedCount) => mopedCount + 1);
+      setmopedCount((mopedCount) => mopedCount + 1)
     }
-  };
+  }
   const busGuess = (direction) => {
-    if (direction == "lower") {
-      setbusCount((busCount) => busCount - 1);
+    if (direction == 'lower') {
+      setbusCount((busCount) => busCount - 1)
       if (busCount == 0) {
-        setbusCount((busCount) => 0);
+        setbusCount((busCount) => 0)
       }
     } else {
-      setbusCount((busCount) => busCount + 1);
+      setbusCount((busCount) => busCount + 1)
     }
-  };
+  }
   const truckGuess = (direction) => {
-    if (direction == "lower") {
-      settruckCount((truckCount) => truckCount - 1);
+    if (direction == 'lower') {
+      settruckCount((truckCount) => truckCount - 1)
       if (truckCount == 0) {
-        settruckCount((truckCount) => 0);
+        settruckCount((truckCount) => 0)
       }
     } else {
-      settruckCount((truckCount) => truckCount + 1);
+      settruckCount((truckCount) => truckCount + 1)
     }
-  };
+  }
 
   return (
     <View>
@@ -68,7 +68,7 @@ export default function BeginSession() {
           color="grey"
           icon="car-side"
           onPress={() => {
-            carGuess("lower");
+            carGuess('lower')
           }}
         ></IconButton>
         <Avatar.Text
@@ -82,7 +82,7 @@ export default function BeginSession() {
           color="grey"
           icon="car-side"
           onPress={() => {
-            carGuess("higher");
+            carGuess('higher')
           }}
         ></IconButton>
       </View>
@@ -93,7 +93,7 @@ export default function BeginSession() {
           color="grey"
           icon="moped"
           onPress={() => {
-            mopedGuess("lower");
+            mopedGuess('lower')
           }}
         ></IconButton>
         <Avatar.Text
@@ -107,7 +107,7 @@ export default function BeginSession() {
           color="grey"
           icon="moped"
           onPress={() => {
-            mopedGuess("higher");
+            mopedGuess('higher')
           }}
         ></IconButton>
       </View>
@@ -118,7 +118,7 @@ export default function BeginSession() {
           color="grey"
           icon="bus-side"
           onPress={() => {
-            busGuess("lower");
+            busGuess('lower')
           }}
         ></IconButton>
         <Avatar.Text
@@ -132,7 +132,7 @@ export default function BeginSession() {
           color="grey"
           icon="bus-side"
           onPress={() => {
-            busGuess("higher");
+            busGuess('higher')
           }}
         ></IconButton>
       </View>
@@ -143,7 +143,7 @@ export default function BeginSession() {
           color="grey"
           icon="dump-truck"
           onPress={() => {
-            truckGuess("lower");
+            truckGuess('lower')
           }}
         ></IconButton>
         <Avatar.Text
@@ -157,7 +157,7 @@ export default function BeginSession() {
           color="grey"
           icon="dump-truck"
           onPress={() => {
-            truckGuess("higher");
+            truckGuess('higher')
           }}
         ></IconButton>
       </View>
@@ -167,29 +167,29 @@ export default function BeginSession() {
           contentStyle={{ marginTop: 10 }}
           icon="close-box"
           mode="contained"
-          onPress={() => navigation.navigate("View Sessions")}
+          onPress={() => navigation.navigate('View Sessions')}
         >
           Save and exit
         </Button>
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
-    flexDirection: "row",
-    alignSelf: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignSelf: 'center',
+    justifyContent: 'space-between',
   },
   iconLeft: {
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   iconRight: {
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   counter: {
-    alignSelf: "center",
+    alignSelf: 'center',
   },
-});
+})

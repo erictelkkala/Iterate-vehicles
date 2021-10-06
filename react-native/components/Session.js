@@ -17,13 +17,9 @@ let near = ''
 export default function StartSessionsScreen() {
   const navigation = useNavigation()
 
-  //Not actually in use in this example
-  const [isFetchingLocation, setIsFetchingLocation] = useState(false)
   //save the location the GPS gives
   // - and used in what to show: default map in location 0,0 and Activityindidator OR map on the actual location
-  const [pickedLocation, setPickedLocation] = useState()
-  //For demo to show another Marker
-  const [yourLocation, setYourLocation] = useState()
+  const [location, setLocation] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
   //Setting the default region of the shown map - HAMK area (the other Delta can be 0)
   //It both are 0, zoom is quite close
@@ -37,58 +33,39 @@ export default function StartSessionsScreen() {
   //none,standard, satellite,hybrid,terrain (Android only),mutedStandard (iOS 11.0+ only)
   const [mapType, setMapType] = useState('satellite')
 
-  const verifyPermissions = async () => {
-    // const result=await Permissions.askAsync(Permissions.LOCATION);
-    const foreGround = await Location.requestForegroundPermissionsAsync()
-    const backGround = await Location.requestBackgroundPermissionsAsync()
-    if (foreGround.status !== 'granted' && backGround.status !== 'granted') {
-      Alert.alert(
-        'No permissions to use location',
-        'You need to grant LOCATION perrmissions to use this app',
-        [{ text: 'Next time!' }]
-      )
-      return false
-    } else {
-      return true
-    }
-  }
+  // const verifyPermissions = async () => {
+  //   // const result=await Permissions.askAsync(Permissions.LOCATION);
+  //   const foreGround = await Location.requestForegroundPermissionsAsync()
+  //   const backGround = await Location.requestBackgroundPermissionsAsync()
+  //   if (foreGround.status !== 'granted' && backGround.status !== 'granted') {
+  //     Alert.alert(
+  //       'No permissions to use location',
+  //       'You need to grant LOCATION perrmissions to use this app',
+  //       [{ text: 'Next time!' }]
+  //     )
+  //     return false
+  //   } else {
+  //     return true
+  //   }
+  // }
 
   const getLocationHandler = async () => {
-    const hasPermission = await verifyPermissions()
-    if (!hasPermission) {
+    let { status } = await Location.requestForegroundPermissionsAsync()
+    if (status !== 'granted') {
+      setErrorMsg('Permission to access location was denied')
       return
     }
-    try {
-      setIsFetchingLocation(true)
-      const location = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.Highest,
-        timeout: 5000,
-      })
-      near = location
-      console.log('Location')
-      console.log(location.coords.latitude)
-      console.log(location.coords.longitude)
-      // setMapRegion({ latitude: location.coords.latitude, longitude: location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 });
-      setMapRegion({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.1,
-        longitudeDelta: 0,
-      })
-      setYourLocation({ latitude: 61.46, longitude: 24.1 })
-      setPickedLocation(location)
-    } catch (err) {
-      Alert.alert('Location not found!', 'Please try again after a moment', [
-        { text: 'OK' },
-      ])
-    }
-    setIsFetchingLocation(false)
+
+    let location = await Location.getCurrentPositionAsync({}, 6)
+    setLocation(location)
+    console.log(location.coords.latitude)
+    console.log(location.coords.longitude)
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.dataView}>
-        {pickedLocation ? (
+        {location ? (
           <View>
             <Button
               mode="contained"
@@ -119,21 +96,21 @@ export default function StartSessionsScreen() {
         </Button>
       </View>
       <View style={styles.mapView}>
-        {pickedLocation ? (
+        {location ? (
           <MapView
             style={styles.mapStyle}
             provider="google"
             mapType={mapType}
-            region={mapRegion}
+            region={{
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+              latitudeDelta: 0,
+              longitudeDelta: 0.0421,
+            }}
           >
             <Marker
-              coordinate={mapRegion}
+              coordinate={location.coords}
               title="My Place"
-              description="Some description"
-            />
-            <Marker
-              coordinate={yourLocation}
-              title="Your Place"
               description="Some description"
             />
           </MapView>
