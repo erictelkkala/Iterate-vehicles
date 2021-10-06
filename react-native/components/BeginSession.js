@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Avatar, Button, IconButton } from 'react-native-paper'
-import { useNavigation } from '@react-navigation/native'
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
+import { Avatar, Button, IconButton } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import { addInfo, fetchAllInfo, fetchAllInfoBasedOnUser} from "../database/db"
 
 export function printCount() {
   return tries
@@ -10,6 +11,8 @@ export function printCount() {
 export function clearCount() {
   tries = 0
 }
+
+
 
 export default function BeginSession() {
   const navigation = useNavigation()
