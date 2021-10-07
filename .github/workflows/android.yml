@@ -5,7 +5,11 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
+    
+defaults:
+  run:
+    working-directory: ./react-native
+    
 jobs:
   install-and-test:
     runs-on: ubuntu-latest
