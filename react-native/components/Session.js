@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import {
-  Alert,
   View,
   StyleSheet,
   Dimensions,
@@ -16,39 +15,15 @@ let near = ''
 
 export default function StartSessionsScreen() {
   const navigation = useNavigation()
-
-  //save the location the GPS gives
-  // - and used in what to show: default map in location 0,0 and Activityindidator OR map on the actual location
   const [location, setLocation] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
-  //Setting the default region of the shown map - HAMK area (the other Delta can be 0)
-  //It both are 0, zoom is quite close
   const [mapRegion, setMapRegion] = useState({
     latitude: 60.976,
     longitude: 24.48,
     latitudeDelta: 0,
     longitudeDelta: 0.0421,
   })
-
-  //none,standard, satellite,hybrid,terrain (Android only),mutedStandard (iOS 11.0+ only)
   const [mapType, setMapType] = useState('satellite')
-
-  // const verifyPermissions = async () => {
-  //   // const result=await Permissions.askAsync(Permissions.LOCATION);
-  //   const foreGround = await Location.requestForegroundPermissionsAsync()
-  //   const backGround = await Location.requestBackgroundPermissionsAsync()
-  //   if (foreGround.status !== 'granted' && backGround.status !== 'granted') {
-  //     Alert.alert(
-  //       'No permissions to use location',
-  //       'You need to grant LOCATION perrmissions to use this app',
-  //       [{ text: 'Next time!' }]
-  //     )
-  //     return false
-  //   } else {
-  //     return true
-  //   }
-  // }
-
   const getLocationHandler = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync()
     if (status !== 'granted') {
