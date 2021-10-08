@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useState }  from "react";
+import { View, StyleSheet, TouchableHighlight, Text, SafeAreaView } from "react-native";
 import { Avatar, Button, IconButton } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { addInfo, fetchAllInfo, fetchAllInfoBasedOnUser} from "../database/db"
+import { Stopwatch } from 'react-native-stopwatch-timer';
 
 // Getter for tries
 export function printCount() {
@@ -15,12 +16,18 @@ export function clearCount() {
 }
 
 // Main function
+
+
+
+
 export default function BeginSession() {
   const navigation = useNavigation()
   const [carCount, setcarCount] = useState(0)
   const [mopedCount, setmopedCount] = useState(0)
   const [busCount, setbusCount] = useState(0)
   const [truckCount, settruckCount] = useState(0)
+  const [isStopwatchStart, setIsStopwatchStart] = useState(false);
+  const [resetStopwatch, setResetStopwatch] = useState(false);
 
   // Counter for the cars
   const carGuess = (direction) => {
@@ -69,11 +76,47 @@ export default function BeginSession() {
       settruckCount((truckCount) => truckCount + 1)
     }
   }
+  
+  
 
   return (
     <View>
-      {/* First counter */}
       <View style={styles.container}>
+      <SafeAreaView style={styles.containerStopwatch}>
+      <View style={styles.containerStopwatch}>
+        <View style={styles.sectionStyle}>
+          <Stopwatch
+            laps
+            msecs
+            start={isStopwatchStart}
+            reset={resetStopwatch}
+            options={options}
+            getTime={(time) => {
+              console.log(time);
+            }}
+          />
+          <TouchableHighlight
+            onPress={() => {
+              setIsStopwatchStart(!isStopwatchStart);
+              setResetStopwatch(false);
+            }}>
+            <Text style={styles.buttonText}>
+              {!isStopwatchStart ? 'START' : 'STOP'}
+            </Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={() => {
+              setIsStopwatchStart(false);
+              setResetStopwatch(true);
+            }}>
+            <Text style={styles.buttonText}>RESET</Text>
+          </TouchableHighlight>
+        </View>
+        </View>
+        </SafeAreaView>
+
+        {/* First counter */}
+        <View style={styles.container}>
         <IconButton
           style={styles.iconLeft}
           size={30}
@@ -97,6 +140,7 @@ export default function BeginSession() {
             carGuess('higher')
           }}
         ></IconButton>
+      </View>
       </View>
 
       {/* Second counter */}
@@ -197,12 +241,42 @@ export default function BeginSession() {
 }
 
 // Stylesheet
+const options = {
+  container: {
+    padding: 5,
+    borderRadius: 10,
+    width: 200,
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 25,
+    color: 'black',
+    marginLeft: 7,
+  },
+};
+
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
     flexDirection: 'row',
     alignSelf: 'center',
     justifyContent: 'space-between',
+  },
+  containerStopwatch: {
+    flex: 1,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sectionStyle: {
+    flex: 1,
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontSize: 20,
+    marginTop: 20,
   },
   iconLeft: {
     alignSelf: 'center',
@@ -213,4 +287,6 @@ const styles = StyleSheet.create({
   counter: {
     alignSelf: 'center',
   },
+  
+
 })
