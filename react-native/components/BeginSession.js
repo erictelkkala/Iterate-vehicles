@@ -4,16 +4,17 @@ import { Avatar, Button, IconButton } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { addInfo, fetchAllInfo, fetchAllInfoBasedOnUser} from "../database/db"
 
+// Getter for tries
 export function printCount() {
   return tries
 }
 
+// Sets the tries to zero
 export function clearCount() {
   tries = 0
 }
 
-
-
+// Main function
 export default function BeginSession() {
   const navigation = useNavigation()
   const [carCount, setcarCount] = useState(0)
@@ -21,6 +22,7 @@ export default function BeginSession() {
   const [busCount, setbusCount] = useState(0)
   const [truckCount, settruckCount] = useState(0)
 
+  // Counter for the cars
   const carGuess = (direction) => {
     if (direction == 'lower') {
       setcarCount((carCount) => carCount - 1)
@@ -31,6 +33,8 @@ export default function BeginSession() {
       setcarCount((carCount) => carCount + 1)
     }
   }
+
+  // Counter for the mopeds
   const mopedGuess = (direction) => {
     if (direction == 'lower') {
       setmopedCount((mopedCount) => mopedCount - 1)
@@ -41,6 +45,8 @@ export default function BeginSession() {
       setmopedCount((mopedCount) => mopedCount + 1)
     }
   }
+
+  // Counter for the busses
   const busGuess = (direction) => {
     if (direction == 'lower') {
       setbusCount((busCount) => busCount - 1)
@@ -51,6 +57,8 @@ export default function BeginSession() {
       setbusCount((busCount) => busCount + 1)
     }
   }
+
+  // Counter for the trucks
   const truckGuess = (direction) => {
     if (direction == 'lower') {
       settruckCount((truckCount) => truckCount - 1)
@@ -64,6 +72,7 @@ export default function BeginSession() {
 
   return (
     <View>
+      {/* First counter */}
       <View style={styles.container}>
         <IconButton
           style={styles.iconLeft}
@@ -89,6 +98,8 @@ export default function BeginSession() {
           }}
         ></IconButton>
       </View>
+
+      {/* Second counter */}
       <View style={styles.container}>
         <IconButton
           style={styles.iconLeft}
@@ -114,6 +125,8 @@ export default function BeginSession() {
           }}
         ></IconButton>
       </View>
+
+      {/* Third counter */}
       <View style={styles.container}>
         <IconButton
           style={styles.iconLeft}
@@ -139,6 +152,8 @@ export default function BeginSession() {
           }}
         ></IconButton>
       </View>
+
+      {/* Fourth cpunter */}
       <View style={styles.container}>
         <IconButton
           style={styles.iconLeft}
@@ -164,6 +179,8 @@ export default function BeginSession() {
           }}
         ></IconButton>
       </View>
+
+      {/* Save and exit button */}
       <View style={styles.container}>
         <Button
           style={{ marginTop: 50, width: 300, height: 60 }}
@@ -179,6 +196,7 @@ export default function BeginSession() {
   )
 }
 
+// Stylesheet
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
