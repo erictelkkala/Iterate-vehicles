@@ -8,6 +8,7 @@ import BeginSession from './components/BeginSession'
 import ViewSessionsScreen from './components/ViewSessions'
 import {init} from './database/db';
 
+// Initiating the database from ./database
 init()
 .then(()=>{
     console.log('Database creation succeeded!');
@@ -15,10 +16,12 @@ init()
   console.log('Database IS NOT initialized! '+err);
 });
 
+// Home screen with the navigation prop
 function HomeScreen({ navigation }) {
   return (
     <View style={styles.main}>
       <View style={styles.container}>
+        {/* Header text */}
         <Text style={styles.vechicleCounter}>VEHICLE COUNTER</Text>
 
         <IconButton
@@ -29,15 +32,21 @@ function HomeScreen({ navigation }) {
         />
       </View>
       <View style={styles.buttonColumn}>
+        {/* Start the session button */}
         <Button
           icon="arrow-right-circle"
           style={{ width: 175 }}
+          // Assign the height variable to the content instead of the button itself
+          // -> otherwise the button touchable area will not be correct
           contentStyle={{ height: 60 }}
           mode="contained"
           onPress={() => navigation.navigate('Start Session')}
         >
           Start session
         </Button>
+
+        {/* View the previous sessions button
+        See above for more specific comments */}
         <Button
           style={{ marginTop: 20 }}
           contentStyle={{ height: 60 }}
@@ -52,8 +61,10 @@ function HomeScreen({ navigation }) {
   )
 }
 
+// Navigation stack
 const Stack = createNativeStackNavigator()
 
+// Navigation stack and screens
 function App() {
   return (
     <NavigationContainer>
@@ -66,6 +77,8 @@ function App() {
     </NavigationContainer>
   )
 }
+
+// Stylesheet
 const styles = StyleSheet.create({
   main: {
     width: '100%',

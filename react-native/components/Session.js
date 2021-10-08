@@ -42,6 +42,7 @@ export default function StartSessionsScreen() {
       <View style={styles.dataView}>
         {location ? (
           <View>
+            {/* Get location button */}
             <Button
               mode="contained"
               style={{ width: 170 }}
@@ -61,6 +62,7 @@ export default function StartSessionsScreen() {
             Get Location
           </Button>
         )}
+        {/* Begin button */}
         <Button
           style={{ marginTop: 20, width: 170 }}
           contentStyle={{ height: 60 }}
@@ -70,19 +72,22 @@ export default function StartSessionsScreen() {
           Begin
         </Button>
       </View>
+
+      {/* Mapview */}
       <View style={styles.mapView}>
         {location ? (
           <MapView
             style={styles.mapStyle}
             provider="google"
             mapType={mapType}
-            region={{
+            initialRegion={{
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
               latitudeDelta: 0,
               longitudeDelta: 0.0421,
             }}
           >
+            {/* Marker */}
             <Marker
               coordinate={location.coords}
               title="My Place"
@@ -100,6 +105,7 @@ export default function StartSessionsScreen() {
   )
 }
 
+// Stylesheet
 const styles = StyleSheet.create({
   container: {
     marginTop: 1,
