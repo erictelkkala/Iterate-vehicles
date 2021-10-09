@@ -4,22 +4,22 @@ import * as SQLite from 'expo-sqlite'
 const db = SQLite.openDatabase('infoTemp.db')
 
 export const init = () => {
-	const promise = new Promise((resolve, reject) => {
-		db.transaction((tx) => {
-			tx.executeSql(
-				'create table if not exists infoTemp (ID integer primary key autoincrement not null, car integer not null, bus integer not null, trucks integer not null, motorcycles integer not null, SessionID integer not null, UserID integer not null, Date text not null, longitude real not null,  latitude real not null);',
-				[],
-				() => {
-					resolve();
-				},
-				(_, err) => {
-					reject(err);
-				}
-			);
-		});
-	});
-	return promise;
-};
+  const promise = new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        'create table if not exists infoTemp (ID integer primary key autoincrement not null, car integer not null, bus integer not null, trucks integer not null, motorcycles integer not null, SessionID integer not null, UserID integer not null, Date text not null, longitude real not null,  latitude real not null);',
+        [],
+        () => {
+          resolve()
+        },
+        (_, err) => {
+          reject(err)
+        }
+      )
+    })
+  })
+  return promise
+}
 
 export const addInfo = (
   car,
