@@ -2,23 +2,10 @@ import React, { useState }  from "react";
 import { View, StyleSheet, TouchableHighlight, Text, SafeAreaView } from "react-native";
 import { Avatar, Button, IconButton } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import { addInfo, fetchAllInfo, fetchAllInfoBasedOnUser} from "../database/db"
+import { addInfo } from "../database/db"
 import { Stopwatch } from 'react-native-stopwatch-timer';
 
-// Getter for tries
-export function printCount() {
-  return tries
-}
-
-// Sets the tries to zero
-export function clearCount() {
-  tries = 0
-}
-
 // Main function
-
-
-
 
 export default function BeginSession() {
   const navigation = useNavigation()
@@ -28,6 +15,7 @@ export default function BeginSession() {
   const [truckCount, settruckCount] = useState(0)
   const [isStopwatchStart, setIsStopwatchStart] = useState(false);
   const [resetStopwatch, setResetStopwatch] = useState(false);
+  const [clickableIcon, setClickableIcon] = useState(false);
 
   // Counter for the cars
   const carGuess = (direction) => {
@@ -76,8 +64,6 @@ export default function BeginSession() {
       settruckCount((truckCount) => truckCount + 1)
     }
   }
-  
-  
 
   return (
     <View>
@@ -87,13 +73,9 @@ export default function BeginSession() {
         <View style={styles.sectionStyle}>
           <Stopwatch
             laps
-            msecs
             start={isStopwatchStart}
             reset={resetStopwatch}
             options={options}
-            getTime={(time) => {
-              console.log(time);
-            }}
           />
           <TouchableHighlight
             onPress={() => {
@@ -108,6 +90,10 @@ export default function BeginSession() {
             onPress={() => {
               setIsStopwatchStart(false);
               setResetStopwatch(true);
+              setcarCount(0);
+              setmopedCount(0);
+              setbusCount(0);
+              settruckCount(0);
             }}>
             <Text style={styles.buttonText}>RESET</Text>
           </TouchableHighlight>
@@ -267,6 +253,7 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
   },
   sectionStyle: {
     flex: 1,
