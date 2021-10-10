@@ -12,10 +12,6 @@ npm-debug.*
 web-build/
 build
 coverage
-
-# Don't lint packages
-package-lock.*
-package.*
 .github
 
 
