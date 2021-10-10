@@ -1,9 +1,15 @@
-import React, { useState }  from "react";
-import { View, StyleSheet, TouchableHighlight, Text, SafeAreaView } from "react-native";
-import { Avatar, Button, IconButton } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
-import { addInfo } from "../database/db"
-import { Stopwatch } from 'react-native-stopwatch-timer';
+import React, { useState } from 'react'
+import {
+  View,
+  StyleSheet,
+  TouchableHighlight,
+  Text,
+  SafeAreaView,
+} from 'react-native'
+import { Avatar, Button, IconButton } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
+import { addInfo } from '../database/db'
+import { useStopwatch } from 'react-timer-hook'
 
 // Main function
 
@@ -13,11 +19,6 @@ export default function BeginSession() {
   const [mopedCount, setmopedCount] = useState(0)
   const [busCount, setbusCount] = useState(0)
   const [truckCount, settruckCount] = useState(0)
-
-  const [isStopwatchStart, setIsStopwatchStart] = useState(false);
-  const [resetStopwatch, setResetStopwatch] = useState(false);
-  const [clickableIcon, setClickableIcon] = useState(false);
-
 
   // Counter for the cars
   const carGuess = (direction) => {
@@ -67,68 +68,54 @@ export default function BeginSession() {
     }
   }
 
+  function MyStopwatch() {
+    const { seconds, minutes, hours, isRunning, start, pause, reset } =
+      useStopwatch({ autoStart: true })
+
+    return (
+      <View style={styles.containerStopwatch}>
+        <Text>
+          {hours}:
+          {minutes}:
+          {seconds}
+        </Text>
+        <Button onPress={start}>Start</Button>
+        <Button onPress={pause}>Pause</Button>
+        <Button onPress={reset}>Reset</Button>
+      </View>
+    )
+  }
+
   return (
     <View>
       <View style={styles.container}>
-      <SafeAreaView style={styles.containerStopwatch}>
-      <View style={styles.containerStopwatch}>
-        <View style={styles.sectionStyle}>
-          <Stopwatch
-            laps
-            start={isStopwatchStart}
-            reset={resetStopwatch}
-            options={options}
-          />
-          <TouchableHighlight
-            onPress={() => {
-              setIsStopwatchStart(!isStopwatchStart);
-              setResetStopwatch(false);
-            }}>
-            <Text style={styles.buttonText}>
-              {!isStopwatchStart ? 'START' : 'STOP'}
-            </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            onPress={() => {
-              setIsStopwatchStart(false);
-              setResetStopwatch(true);
-              setcarCount(0);
-              setmopedCount(0);
-              setbusCount(0);
-              settruckCount(0);
-            }}>
-            <Text style={styles.buttonText}>RESET</Text>
-          </TouchableHighlight>
-        </View>
-        </View>
-        </SafeAreaView>
-
-        {/* First counter */}
-        <View style={styles.container}>
-          <IconButton
-            style={styles.iconLeft}
-            size={30}
-            color="grey"
-            icon="car-side"
-            onPress={() => {
-              carGuess('lower')
-            }}
-          ></IconButton>
-          <Avatar.Text
-            style={styles.counter}
-            size={70}
-            label={carCount}
-          ></Avatar.Text>
-          <IconButton
-            style={styles.iconRight}
-            size={50}
-            color="grey"
-            icon="car-side"
-            onPress={() => {
-              carGuess('higher')
-            }}
-          ></IconButton>
-        </View>
+        <MyStopwatch />
+      </View>
+      {/* First counter */}
+      <View style={styles.container}>
+        <IconButton
+          style={styles.iconLeft}
+          size={30}
+          color="grey"
+          icon="car-side"
+          onPress={() => {
+            carGuess('lower')
+          }}
+        ></IconButton>
+        <Avatar.Text
+          style={styles.counter}
+          size={70}
+          label={carCount}
+        ></Avatar.Text>
+        <IconButton
+          style={styles.iconRight}
+          size={50}
+          color="grey"
+          icon="car-side"
+          onPress={() => {
+            carGuess('higher')
+          }}
+        ></IconButton>
       </View>
 
       {/* Second counter */}
@@ -229,20 +216,6 @@ export default function BeginSession() {
 }
 
 // Stylesheet
-const options = {
-  container: {
-    padding: 5,
-    borderRadius: 10,
-    width: 200,
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 25,
-    color: 'black',
-    marginLeft: 7,
-  },
-}
-
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
