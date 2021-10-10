@@ -13,9 +13,11 @@ export default function BeginSession() {
   const [mopedCount, setmopedCount] = useState(0)
   const [busCount, setbusCount] = useState(0)
   const [truckCount, settruckCount] = useState(0)
+
   const [isStopwatchStart, setIsStopwatchStart] = useState(false);
   const [resetStopwatch, setResetStopwatch] = useState(false);
   const [clickableIcon, setClickableIcon] = useState(false);
+
 
   // Counter for the cars
   const carGuess = (direction) => {
@@ -103,30 +105,30 @@ export default function BeginSession() {
 
         {/* First counter */}
         <View style={styles.container}>
-        <IconButton
-          style={styles.iconLeft}
-          size={30}
-          color="grey"
-          icon="car-side"
-          onPress={() => {
-            carGuess('lower')
-          }}
-        ></IconButton>
-        <Avatar.Text
-          style={styles.counter}
-          size={70}
-          label={carCount}
-        ></Avatar.Text>
-        <IconButton
-          style={styles.iconRight}
-          size={50}
-          color="grey"
-          icon="car-side"
-          onPress={() => {
-            carGuess('higher')
-          }}
-        ></IconButton>
-      </View>
+          <IconButton
+            style={styles.iconLeft}
+            size={30}
+            color="grey"
+            icon="car-side"
+            onPress={() => {
+              carGuess('lower')
+            }}
+          ></IconButton>
+          <Avatar.Text
+            style={styles.counter}
+            size={70}
+            label={carCount}
+          ></Avatar.Text>
+          <IconButton
+            style={styles.iconRight}
+            size={50}
+            color="grey"
+            icon="car-side"
+            onPress={() => {
+              carGuess('higher')
+            }}
+          ></IconButton>
+        </View>
       </View>
 
       {/* Second counter */}
@@ -239,7 +241,7 @@ const options = {
     color: 'black',
     marginLeft: 7,
   },
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -274,6 +276,4 @@ const styles = StyleSheet.create({
   counter: {
     alignSelf: 'center',
   },
-  
-
 })
