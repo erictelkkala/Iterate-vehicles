@@ -75,13 +75,13 @@ export default function BeginSession() {
     return (
       <View style={styles.containerStopwatch}>
         <Text>
-          {hours}:
-          {minutes}:
-          {seconds}
+          {hours}:{minutes}:{seconds}
         </Text>
-        <Button onPress={start}>Start</Button>
-        <Button onPress={pause}>Pause</Button>
-        <Button onPress={reset}>Reset</Button>
+        <View style={styles.stopWatchButtons}>
+          <Button onPress={start}>Start</Button>
+          <Button onPress={pause}>Pause</Button>
+          <Button onPress={reset}>Reset</Button>
+        </View>
       </View>
     )
   }
@@ -218,18 +218,19 @@ export default function BeginSession() {
 // Stylesheet
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
+    paddingTop: 10,
     flexDirection: 'row',
     alignSelf: 'center',
     justifyContent: 'space-between',
   },
   containerStopwatch: {
-    flex: 1,
-    padding: 10,
-    justifyContent: 'center',
+    alignContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
   },
+  stopWatchButtons: {
+    flexDirection: 'row',
+  },
+
   sectionStyle: {
     flex: 1,
     alignItems: 'center',
