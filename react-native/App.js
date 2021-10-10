@@ -7,13 +7,17 @@ import StartSessionsScreen from './components/Session'
 import BeginSession from './components/BeginSession'
 import ViewSessionsScreen from './components/ViewSessions'
 import { init } from './database/db'
+
 import * as Device from 'expo-device'
+
 
 // Initiating the database from ./database
 init()
   .then(() => {
     console.log('Database creation succeeded!')
+
     console.log(Device.isDevice)
+
   })
   .catch((err) => {
     console.log('Database IS NOT initialized! ' + err)

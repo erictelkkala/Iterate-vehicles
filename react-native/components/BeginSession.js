@@ -1,24 +1,17 @@
-import React, { useState }  from "react";
-import { View, StyleSheet, TouchableHighlight, Text, SafeAreaView } from "react-native";
-import { Avatar, Button, IconButton } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
-import { addInfo, fetchAllInfo, fetchAllInfoBasedOnUser} from "../database/db"
-import { Stopwatch } from 'react-native-stopwatch-timer';
-
-// Getter for tries
-export function printCount() {
-  return tries
-}
-
-// Sets the tries to zero
-export function clearCount() {
-  tries = 0
-}
+import React, { useState } from 'react'
+import {
+  View,
+  StyleSheet,
+  TouchableHighlight,
+  Text,
+  SafeAreaView,
+} from 'react-native'
+import { Avatar, Button, IconButton } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
+import { addInfo } from '../database/db'
+import { useStopwatch } from 'react-timer-hook'
 
 // Main function
-
-
-
 
 export default function BeginSession() {
   const navigation = useNavigation()
@@ -26,8 +19,6 @@ export default function BeginSession() {
   const [mopedCount, setmopedCount] = useState(0)
   const [busCount, setbusCount] = useState(0)
   const [truckCount, settruckCount] = useState(0)
-  const [isStopwatchStart, setIsStopwatchStart] = useState(false);
-  const [resetStopwatch, setResetStopwatch] = useState(false);
 
   // Counter for the cars
   const carGuess = (direction) => {
@@ -76,47 +67,32 @@ export default function BeginSession() {
       settruckCount((truckCount) => truckCount + 1)
     }
   }
-  
-  
+
+  function MyStopwatch() {
+    const { seconds, minutes, hours, isRunning, start, pause, reset } =
+      useStopwatch({ autoStart: true })
+
+    return (
+      <View style={styles.containerStopwatch}>
+        <Text>
+          {hours}:
+          {minutes}:
+          {seconds}
+        </Text>
+        <Button onPress={start}>Start</Button>
+        <Button onPress={pause}>Pause</Button>
+        <Button onPress={reset}>Reset</Button>
+      </View>
+    )
+  }
 
   return (
     <View>
       <View style={styles.container}>
-      <SafeAreaView style={styles.containerStopwatch}>
-      <View style={styles.containerStopwatch}>
-        <View style={styles.sectionStyle}>
-          <Stopwatch
-            laps
-            msecs
-            start={isStopwatchStart}
-            reset={resetStopwatch}
-            options={options}
-            getTime={(time) => {
-              console.log(time);
-            }}
-          />
-          <TouchableHighlight
-            onPress={() => {
-              setIsStopwatchStart(!isStopwatchStart);
-              setResetStopwatch(false);
-            }}>
-            <Text style={styles.buttonText}>
-              {!isStopwatchStart ? 'START' : 'STOP'}
-            </Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            onPress={() => {
-              setIsStopwatchStart(false);
-              setResetStopwatch(true);
-            }}>
-            <Text style={styles.buttonText}>RESET</Text>
-          </TouchableHighlight>
-        </View>
-        </View>
-        </SafeAreaView>
-
-        {/* First counter */}
-        <View style={styles.container}>
+        <MyStopwatch />
+      </View>
+      {/* First counter */}
+      <View style={styles.container}>
         <IconButton
           style={styles.iconLeft}
           size={30}
@@ -140,7 +116,6 @@ export default function BeginSession() {
             carGuess('higher')
           }}
         ></IconButton>
-      </View>
       </View>
 
       {/* Second counter */}
@@ -241,20 +216,6 @@ export default function BeginSession() {
 }
 
 // Stylesheet
-const options = {
-  container: {
-    padding: 5,
-    borderRadius: 10,
-    width: 200,
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 25,
-    color: 'black',
-    marginLeft: 7,
-  },
-};
-
 const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
@@ -267,6 +228,7 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
   },
   sectionStyle: {
     flex: 1,
@@ -287,6 +249,4 @@ const styles = StyleSheet.create({
   counter: {
     alignSelf: 'center',
   },
-  
-
 })
