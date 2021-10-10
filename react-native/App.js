@@ -6,15 +6,18 @@ import { Button, IconButton, Colors } from 'react-native-paper'
 import StartSessionsScreen from './components/Session'
 import BeginSession from './components/BeginSession'
 import ViewSessionsScreen from './components/ViewSessions'
-import {init} from './database/db';
+import { init } from './database/db'
+import * as Device from 'expo-device'
 
 // Initiating the database from ./database
 init()
-.then(()=>{
-    console.log('Database creation succeeded!');
-}).catch((err)=>{
-  console.log('Database IS NOT initialized! '+err);
-});
+  .then(() => {
+    console.log('Database creation succeeded!')
+    console.log(Device.isDevice)
+  })
+  .catch((err) => {
+    console.log('Database IS NOT initialized! ' + err)
+  })
 
 // Home screen with the navigation prop
 function HomeScreen({ navigation }) {
