@@ -10,7 +10,6 @@ import { Avatar, Button, IconButton, useTheme } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { addInfo, fetchAllInfo } from '../database/db'
 import Timer from 'react-compound-timer'
-import { longitude, latitude } from './Session'
 
 // Main function
 
@@ -18,9 +17,6 @@ export default function BeginSession() {
   //Some variables for time being.
   let SessionID = 1
   let UserID = 1
-
-  let longitude = 52.52
-  let latitude = 45.25
 
   // Theme import
   const theme = useTheme()
@@ -31,7 +27,8 @@ export default function BeginSession() {
   const [busCount, setbusCount] = useState(0)
   const [truckCount, settruckCount] = useState(0)
   const [counters, setCounters] = useState([])
-  // const [latitude, setLatitude] = useState(0)
+  const [latitude, setLatitude] = useState(0.0)
+  const [longitude, setLongitude] = useState(0.0)
   const [currentDate, setDate] = useState('')
   // const [UserID, setUserID] = useState(0)
   //  const [SessionID, setSessionID] = useState(0)
@@ -41,7 +38,12 @@ export default function BeginSession() {
     var month = new Date().getMonth() + 1
     var year = new Date().getFullYear()
     setDate(date + '/' + month + '/' + year)
+    setLatitude(global.latitudeVar)
+    setLongitude(global.longitudeVar)
+    console.log(latitude)
+    console.log(longitude)
   })
+
   const ResultHandler = () => {
     setCounters((counters) => [
       ...counters,
@@ -51,6 +53,8 @@ export default function BeginSession() {
         trucks: settruckCount,
         motorcycles: setmopedCount,
         date: setDate,
+        longitude: setLongitude,
+        latitude: setLatitude,
       },
     ])
     addResultsToDatabase()
@@ -67,8 +71,8 @@ export default function BeginSession() {
         UserID,
         SessionID,
         currentDate,
-        latitude,
-        longitude
+        longitude,
+        latitude
       )
       console.log(dbResult)
     } catch (err) {
@@ -136,6 +140,10 @@ export default function BeginSession() {
             <Timer.Seconds />
           </Text>
         </Timer>
+      </View>
+      <View>
+        <Text>Global variable : {global.latitudeVar}</Text>
+        <Text>Global variable : {global.longitudeVar}</Text>
       </View>
       {/* First counter */}
       <View style={styles.container}>

@@ -12,6 +12,8 @@ export default function StartSessionsScreen() {
   const navigation = useNavigation()
   const [location, setLocation] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
+  const [latitude, setLatitude] = useState(0)
+  const [longitude, setLongitude] = useState(0)
   const [mapRegion, setMapRegion] = useState({
     latitude: 60.976,
     longitude: 24.48,
@@ -31,9 +33,13 @@ export default function StartSessionsScreen() {
 
     let location = await Location.getCurrentPositionAsync({}, 6)
     setLocation(location)
-    console.log(location.coords.latitude)
-    console.log(location.coords.longitude)
+
+    setLatitude(location.coords.latitude)
+    setLongitude(location.coords.longitude)
   }
+
+  global.latitudeVar = latitude
+  global.longitudeVar = longitude
 
   return (
     <View style={styles.container}>
