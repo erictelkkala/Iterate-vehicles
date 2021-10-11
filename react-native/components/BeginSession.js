@@ -6,16 +6,10 @@ import {
   Text,
   SafeAreaView,
 } from 'react-native'
-import {
-  Avatar,
-  Button,
-  IconButton,
-  Provider as PaperProvider,
-  useTheme,
-} from 'react-native-paper'
+import { Avatar, Button, IconButton, useTheme } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { addInfo, fetchAllInfo } from '../database/db'
-import { useStopwatch } from 'react-timer-hook'
+import Timer from 'react-compound-timer'
 import { longitude, latitude } from './Session'
 
 // Main function
@@ -130,31 +124,19 @@ export default function BeginSession() {
     }
   }
 
-  function MyStopwatch() {
-    const { seconds, minutes, hours, isRunning, start, pause, reset } =
-      useStopwatch({ autoStart: true })
-
-    return (
-      <View style={styles.containerStopwatch}>
-        <Text>
-          {hours}:{minutes}:{seconds}
-        </Text>
-        <View style={styles.stopWatchButtons}>
-          <Button onPress={start}>Start</Button>
-          <Button onPress={pause}>Pause</Button>
-          <Button onPress={reset}>Reset</Button>
-        </View>
-      </View>
-    )
-  }
-
   return (
     <View style={styles.main}>
-      <View>
-        <Text>{currentDate}</Text>
+      {/* Timer / Stopwatch */}
+      <View style={styles.containerStopwatch}>
+        <Timer>
+          <Text>
+            <Timer.Days />:
+            <Timer.Hours />:
+            <Timer.Minutes />:
+            <Timer.Seconds />
+          </Text>
+        </Timer>
       </View>
-      <MyStopwatch />
-
       {/* First counter */}
       <View style={styles.container}>
         <IconButton
@@ -288,7 +270,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-
   container: {
     paddingTop: 10,
     flexDirection: 'row',
@@ -296,7 +277,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   containerStopwatch: {
-    alignItems: 'center',
+    alignSelf: 'center',
   },
   stopWatchButtons: {
     flexDirection: 'row',
