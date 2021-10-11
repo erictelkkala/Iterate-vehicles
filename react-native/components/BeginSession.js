@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   View,
   StyleSheet,
@@ -19,11 +19,12 @@ import { useStopwatch } from 'react-timer-hook'
 import { longitude, latitude } from './Session'
 
 // Main function
+
 export default function BeginSession() {
   //Some variables for time being.
   let SessionID = 1
   let UserID = 1
-  let Date = '10/10/2021'
+
   let longitude = 52.52
   let latitude = 45.25
 
@@ -37,9 +38,16 @@ export default function BeginSession() {
   const [truckCount, settruckCount] = useState(0)
   const [counters, setCounters] = useState([])
   // const [latitude, setLatitude] = useState(0)
-  ////  const [Date, setDate] = useState('')
+  const [currentDate, setDate] = useState('')
   // const [UserID, setUserID] = useState(0)
   //  const [SessionID, setSessionID] = useState(0)
+
+  useEffect(() => {
+    var date = new Date().getDate()
+    var month = new Date().getMonth() + 1
+    var year = new Date().getFullYear()
+    setDate(date + '/' + month + '/' + year)
+  })
   const ResultHandler = () => {
     setCounters((counters) => [
       ...counters,
@@ -48,9 +56,11 @@ export default function BeginSession() {
         bus: setbusCount,
         trucks: settruckCount,
         motorcycles: setmopedCount,
+        date: setDate,
       },
     ])
     addResultsToDatabase()
+    navigation.navigate('View Sessions')
   }
 
   async function addResultsToDatabase() {
@@ -62,7 +72,7 @@ export default function BeginSession() {
         truckCount,
         UserID,
         SessionID,
-        Date,
+        currentDate,
         latitude,
         longitude
       )
@@ -140,6 +150,9 @@ export default function BeginSession() {
 
   return (
     <View style={styles.main}>
+      <View>
+        <Text>{currentDate}</Text>
+      </View>
       <MyStopwatch />
 
       {/* First counter */}
@@ -252,19 +265,15 @@ export default function BeginSession() {
 
       {/* Save and exit button */}
       <View style={styles.container}>
-        <Button title="Add" onPress={ResultHandler}>
-          {' '}
-          add{' '}
-        </Button>
-        {/* <Button
+        <Button
           style={{ marginTop: 50, width: 300, height: 60 }}
           contentStyle={{ marginTop: 10 }}
           icon="close-box"
           mode="contained"
-          onPress={() => navigation.navigate('View Sessions')}
+          onPress={ResultHandler}
         >
-          Save and exit 
-       </Button> */}
+          Save and exit
+        </Button>
       </View>
     </View>
   )
