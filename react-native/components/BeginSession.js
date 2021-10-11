@@ -6,11 +6,18 @@ import {
   Text,
   SafeAreaView,
 } from 'react-native'
-import { Avatar, Button, IconButton } from 'react-native-paper'
+import {
+  Avatar,
+  Button,
+  IconButton,
+  Provider as PaperProvider,
+  useTheme,
+} from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { addInfo, fetchAllInfo } from '../database/db'
 import { useStopwatch } from 'react-timer-hook'
 import { longitude, latitude } from './Session'
+
 // Main function
 export default function BeginSession() {
   //Some variables for time being.
@@ -19,6 +26,9 @@ export default function BeginSession() {
   let Date = '10/10/2021'
   let longitude = 52.52
   let latitude = 45.25
+
+  // Theme import
+  const theme = useTheme()
 
   const navigation = useNavigation()
   const [carCount, setcarCount] = useState(0)
@@ -129,16 +139,15 @@ export default function BeginSession() {
   }
 
   return (
-    <View>
-      <View style={styles.container}>
-        <MyStopwatch />
-      </View>
+    <View style={styles.main}>
+      <MyStopwatch />
+
       {/* First counter */}
       <View style={styles.container}>
         <IconButton
-          style={styles.iconLeft}
+          style={styles.icon}
           size={30}
-          color="grey"
+          color={theme.colors.grey}
           icon="car-side"
           onPress={() => {
             carGuess('lower')
@@ -150,9 +159,9 @@ export default function BeginSession() {
           label={carCount}
         ></Avatar.Text>
         <IconButton
-          style={styles.iconRight}
+          style={styles.icon}
           size={50}
-          color="grey"
+          color={theme.colors.grey}
           icon="car-side"
           onPress={() => {
             carGuess('higher')
@@ -163,9 +172,9 @@ export default function BeginSession() {
       {/* Second counter */}
       <View style={styles.container}>
         <IconButton
-          style={styles.iconLeft}
+          style={styles.icon}
           size={30}
-          color="grey"
+          color={theme.colors.grey}
           icon="moped"
           onPress={() => {
             mopedGuess('lower')
@@ -177,9 +186,9 @@ export default function BeginSession() {
           label={mopedCount}
         ></Avatar.Text>
         <IconButton
-          style={styles.iconRight}
+          style={styles.icon}
           size={50}
-          color="grey"
+          color={theme.colors.grey}
           icon="moped"
           onPress={() => {
             mopedGuess('higher')
@@ -190,9 +199,9 @@ export default function BeginSession() {
       {/* Third counter */}
       <View style={styles.container}>
         <IconButton
-          style={styles.iconLeft}
+          style={styles.icon}
           size={30}
-          color="grey"
+          color={theme.colors.grey}
           icon="bus-side"
           onPress={() => {
             busGuess('lower')
@@ -204,9 +213,9 @@ export default function BeginSession() {
           label={busCount}
         ></Avatar.Text>
         <IconButton
-          style={styles.iconRight}
+          style={styles.icon}
           size={50}
-          color="grey"
+          color={theme.colors.grey}
           icon="bus-side"
           onPress={() => {
             busGuess('higher')
@@ -217,9 +226,9 @@ export default function BeginSession() {
       {/* Fourth counter */}
       <View style={styles.container}>
         <IconButton
-          style={styles.iconLeft}
+          style={styles.icon}
           size={30}
-          color="grey"
+          color={theme.colors.grey}
           icon="dump-truck"
           onPress={() => {
             truckGuess('lower')
@@ -231,9 +240,9 @@ export default function BeginSession() {
           label={truckCount}
         ></Avatar.Text>
         <IconButton
-          style={styles.iconRight}
+          style={styles.icon}
           size={50}
-          color="grey"
+          color={theme.colors.grey}
           icon="dump-truck"
           onPress={() => {
             truckGuess('higher')
@@ -263,6 +272,14 @@ export default function BeginSession() {
 
 // Stylesheet
 const styles = StyleSheet.create({
+  main: {
+    alignContent: 'center',
+    alignSelf: 'center',
+    textAlign: 'center',
+    flex: 1,
+    flexDirection: 'column',
+  },
+
   container: {
     paddingTop: 10,
     flexDirection: 'row',
@@ -270,28 +287,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   containerStopwatch: {
-    alignContent: 'center',
     alignItems: 'center',
   },
   stopWatchButtons: {
     flexDirection: 'row',
   },
-
-  sectionStyle: {
-    flex: 1,
-    alignItems: 'center',
-    alignSelf: 'center',
-    justifyContent: 'center',
-  },
   buttonText: {
     fontSize: 20,
     marginTop: 20,
   },
-  iconLeft: {
-    alignSelf: 'center',
-  },
-  iconRight: {
-    alignSelf: 'center',
+  icon: {
+    justifyContent: 'center',
+    height: 60,
+    width: 60,
   },
   counter: {
     alignSelf: 'center',

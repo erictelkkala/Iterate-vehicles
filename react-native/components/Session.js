@@ -3,7 +3,7 @@ import { View, StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import * as Location from 'expo-location'
 import { useNavigation } from '@react-navigation/native'
-import { Button } from 'react-native-paper'
+import { Button, useTheme } from 'react-native-paper'
 import * as Permissions from 'expo-permissions'
 
 let near = ''
@@ -19,6 +19,9 @@ export default function StartSessionsScreen() {
     longitudeDelta: 0.0421,
   })
   const [mapType, setMapType] = useState('satellite')
+  // Theme import
+  const theme = useTheme()
+
   const getLocationHandler = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync()
     if (status !== 'granted') {
@@ -40,7 +43,7 @@ export default function StartSessionsScreen() {
             {/* Get location button */}
             <Button
               mode="contained"
-              style={{ width: 170 }}
+              style={{ width: 170, color: theme.colors.primary }}
               contentStyle={{ height: 60 }}
               onPress={getLocationHandler}
             >
