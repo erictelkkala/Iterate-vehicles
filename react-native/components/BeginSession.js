@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   View,
   StyleSheet,
@@ -6,19 +6,20 @@ import {
   Text,
   SafeAreaView,
 } from 'react-native'
-import { Avatar, Button, IconButton } from 'react-native-paper'
+import { Avatar, Button, IconButton, useTheme } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { addInfo, fetchAllInfo } from '../database/db'
-import { useStopwatch } from 'react-timer-hook'
-import { longitude, latitude } from './Session'
+import Timer from 'react-compound-timer'
+
 // Main function
+
 export default function BeginSession() {
   //Some variables for time being.
   let SessionID = 1
   let UserID = 1
-  let Date = '10/10/2021'
-  let longitude = 52.52
-  let latitude = 45.25
+
+  // Theme import
+  const theme = useTheme()
 
   const navigation = useNavigation()
   const [carCount, setcarCount] = useState(0)
@@ -26,10 +27,23 @@ export default function BeginSession() {
   const [busCount, setbusCount] = useState(0)
   const [truckCount, settruckCount] = useState(0)
   const [counters, setCounters] = useState([])
-  // const [latitude, setLatitude] = useState(0)
-  ////  const [Date, setDate] = useState('')
+  const [latitude, setLatitude] = useState(0.0)
+  const [longitude, setLongitude] = useState(0.0)
+  const [currentDate, setDate] = useState('')
   // const [UserID, setUserID] = useState(0)
   //  const [SessionID, setSessionID] = useState(0)
+
+  useEffect(() => {
+    var date = new Date().getDate()
+    var month = new Date().getMonth() + 1
+    var year = new Date().getFullYear()
+    setDate(date + '/' + month + '/' + year)
+    setLatitude(global.latitudeVar)
+    setLongitude(global.longitudeVar)
+    console.log(latitude)
+    console.log(longitude)
+  })
+
   const ResultHandler = () => {
     setCounters((counters) => [
       ...counters,
@@ -38,9 +52,13 @@ export default function BeginSession() {
         bus: setbusCount,
         trucks: settruckCount,
         motorcycles: setmopedCount,
+        date: setDate,
+        longitude: setLongitude,
+        latitude: setLatitude,
       },
     ])
     addResultsToDatabase()
+    navigation.navigate('View Sessions')
   }
 
   async function addResultsToDatabase() {
@@ -52,9 +70,9 @@ export default function BeginSession() {
         truckCount,
         UserID,
         SessionID,
-        Date,
-        latitude,
-        longitude
+        currentDate,
+        longitude,
+        latitude
       )
       console.log(dbResult)
     } catch (err) {
@@ -110,35 +128,29 @@ export default function BeginSession() {
     }
   }
 
-  function MyStopwatch() {
-    const { seconds, minutes, hours, isRunning, start, pause, reset } =
-      useStopwatch({ autoStart: true })
-
-    return (
-      <View style={styles.containerStopwatch}>
-        <Text>
-          {hours}:{minutes}:{seconds}
-        </Text>
-        <View style={styles.stopWatchButtons}>
-          <Button onPress={start}>Start</Button>
-          <Button onPress={pause}>Pause</Button>
-          <Button onPress={reset}>Reset</Button>
-        </View>
-      </View>
-    )
-  }
-
   return (
-    <View>
-      <View style={styles.container}>
-        <MyStopwatch />
+    <View style={styles.main}>
+      {/* Timer / Stopwatch */}
+      <View style={styles.containerStopwatch}>
+        <Timer>
+          <Text>
+            <Timer.Days />:
+            <Timer.Hours />:
+            <Timer.Minutes />:
+            <Timer.Seconds />
+          </Text>
+        </Timer>
+      </View>
+      <View>
+        <Text>Global variable : {global.latitudeVar}</Text>
+        <Text>Global variable : {global.longitudeVar}</Text>
       </View>
       {/* First counter */}
       <View style={styles.container}>
         <IconButton
-          style={styles.iconLeft}
+          style={styles.icon}
           size={30}
-          color="grey"
+          color={theme.colors.grey}
           icon="car-side"
           onPress={() => {
             carGuess('lower')
@@ -150,9 +162,9 @@ export default function BeginSession() {
           label={carCount}
         ></Avatar.Text>
         <IconButton
-          style={styles.iconRight}
+          style={styles.icon}
           size={50}
-          color="grey"
+          color={theme.colors.grey}
           icon="car-side"
           onPress={() => {
             carGuess('higher')
@@ -163,9 +175,9 @@ export default function BeginSession() {
       {/* Second counter */}
       <View style={styles.container}>
         <IconButton
-          style={styles.iconLeft}
+          style={styles.icon}
           size={30}
-          color="grey"
+          color={theme.colors.grey}
           icon="moped"
           onPress={() => {
             mopedGuess('lower')
@@ -177,9 +189,9 @@ export default function BeginSession() {
           label={mopedCount}
         ></Avatar.Text>
         <IconButton
-          style={styles.iconRight}
+          style={styles.icon}
           size={50}
-          color="grey"
+          color={theme.colors.grey}
           icon="moped"
           onPress={() => {
             mopedGuess('higher')
@@ -190,9 +202,9 @@ export default function BeginSession() {
       {/* Third counter */}
       <View style={styles.container}>
         <IconButton
-          style={styles.iconLeft}
+          style={styles.icon}
           size={30}
-          color="grey"
+          color={theme.colors.grey}
           icon="bus-side"
           onPress={() => {
             busGuess('lower')
@@ -204,9 +216,9 @@ export default function BeginSession() {
           label={busCount}
         ></Avatar.Text>
         <IconButton
-          style={styles.iconRight}
+          style={styles.icon}
           size={50}
-          color="grey"
+          color={theme.colors.grey}
           icon="bus-side"
           onPress={() => {
             busGuess('higher')
@@ -217,9 +229,9 @@ export default function BeginSession() {
       {/* Fourth counter */}
       <View style={styles.container}>
         <IconButton
-          style={styles.iconLeft}
+          style={styles.icon}
           size={30}
-          color="grey"
+          color={theme.colors.grey}
           icon="dump-truck"
           onPress={() => {
             truckGuess('lower')
@@ -231,9 +243,9 @@ export default function BeginSession() {
           label={truckCount}
         ></Avatar.Text>
         <IconButton
-          style={styles.iconRight}
+          style={styles.icon}
           size={50}
-          color="grey"
+          color={theme.colors.grey}
           icon="dump-truck"
           onPress={() => {
             truckGuess('higher')
@@ -243,19 +255,15 @@ export default function BeginSession() {
 
       {/* Save and exit button */}
       <View style={styles.container}>
-        <Button title="Add" onPress={ResultHandler}>
-          {' '}
-          add{' '}
-        </Button>
-        {/* <Button
+        <Button
           style={{ marginTop: 50, width: 300, height: 60 }}
           contentStyle={{ marginTop: 10 }}
           icon="close-box"
           mode="contained"
-          onPress={() => navigation.navigate('View Sessions')}
+          onPress={ResultHandler}
         >
-          Save and exit 
-       </Button> */}
+          Save and exit
+        </Button>
       </View>
     </View>
   )
@@ -263,6 +271,13 @@ export default function BeginSession() {
 
 // Stylesheet
 const styles = StyleSheet.create({
+  main: {
+    alignContent: 'center',
+    alignSelf: 'center',
+    textAlign: 'center',
+    flex: 1,
+    flexDirection: 'column',
+  },
   container: {
     paddingTop: 10,
     flexDirection: 'row',
@@ -270,28 +285,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   containerStopwatch: {
-    alignContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'center',
   },
   stopWatchButtons: {
     flexDirection: 'row',
-  },
-
-  sectionStyle: {
-    flex: 1,
-    alignItems: 'center',
-    alignSelf: 'center',
-    justifyContent: 'center',
   },
   buttonText: {
     fontSize: 20,
     marginTop: 20,
   },
-  iconLeft: {
-    alignSelf: 'center',
-  },
-  iconRight: {
-    alignSelf: 'center',
+  icon: {
+    justifyContent: 'center',
+    height: 60,
+    width: 60,
   },
   counter: {
     alignSelf: 'center',

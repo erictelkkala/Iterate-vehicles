@@ -44,9 +44,9 @@ export default function ViewSessionsScreen() {
                 {'  '}
                 UserID:{itemData.item.UserID}
                 {'  '}
-                latitude:{itemData.item.latitude}
-                {'  '}
                 longitude:{itemData.item.longitude}
+                {'  '}
+                latitude:{itemData.item.latitude}
                 {'  '}
               </Text>
               <Text style={styles.counters}>

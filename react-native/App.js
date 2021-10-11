@@ -2,7 +2,14 @@ import * as React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Button, IconButton, Colors } from 'react-native-paper'
+import {
+  Button,
+  IconButton,
+  Colors,
+  Provider as PaperProvider,
+  DefaultTheme,
+  useTheme,
+} from 'react-native-paper'
 import StartSessionsScreen from './components/Session'
 import BeginSession from './components/BeginSession'
 import ViewSessionsScreen from './components/ViewSessions'
@@ -23,9 +30,12 @@ init()
 
 // Home screen with the navigation prop
 function HomeScreen({ navigation }) {
+  // Since the PaperProvider is located at the Navigation Stack, you need to "import" the theme to the function
+  const theme = useTheme()
+
   return (
     <View style={styles.main}>
-      <View style={styles.container}>
+      <View>
         {/* Header text */}
         <Text style={styles.vechicleCounter}>VEHICLE COUNTER</Text>
 
@@ -40,7 +50,7 @@ function HomeScreen({ navigation }) {
         {/* Start the session button */}
         <Button
           icon="arrow-right-circle"
-          style={{ width: 175 }}
+          style={{ width: 175, color: theme.colors.primary }}
           // Assign the height variable to the content instead of the button itself
           // -> otherwise the button touchable area will not be correct
           contentStyle={{ height: 60 }}
@@ -53,7 +63,7 @@ function HomeScreen({ navigation }) {
         {/* View the previous sessions button
         See above for more specific comments */}
         <Button
-          style={{ marginTop: 20 }}
+          style={{ marginTop: 20, color: theme.colors.primary }}
           contentStyle={{ height: 60 }}
           icon="border-color"
           mode="contained"
@@ -72,15 +82,28 @@ const Stack = createNativeStackNavigator()
 // Navigation stack and screens
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Start Session" component={StartSessionsScreen} />
-        <Stack.Screen name="View Sessions" component={ViewSessionsScreen} />
-        <Stack.Screen name="Begin Session" component={BeginSession} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <PaperProvider theme={theme}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Start Session" component={StartSessionsScreen} />
+          <Stack.Screen name="View Sessions" component={ViewSessionsScreen} />
+          <Stack.Screen name="Begin Session" component={BeginSession} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   )
+}
+
+// Theme for the PaperProvider
+export const theme = {
+  ...DefaultTheme,
+  roundness: 10,
+  colors: {
+    primary: '#6E31D1',
+    accent: '#93d131',
+    grey: '#455A64',
+  },
 }
 
 // Stylesheet
@@ -90,11 +113,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 50,
-  },
-  container: {
-    height: '20%',
-    paddingBottom: 100,
   },
   vechicleCounter: {
     fontFamily: 'sans-serif',
@@ -104,16 +122,13 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 41,
     textAlign: 'center',
-    paddingBottom: 0,
-    width: 208,
-    height: 94,
   },
   vechicleIcon: {
     alignSelf: 'center',
     position: 'relative',
   },
   buttonColumn: {
-    marginTop: 200,
+    marginTop: 150,
     alignItems: 'center',
   },
 })
