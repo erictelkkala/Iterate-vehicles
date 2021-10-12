@@ -258,13 +258,13 @@ export default function BeginSession() {
       {/* Save and exit button */}
       {/* Timer / Stopwatch */}
       <View style={styles.containerStopwatch}>
-        <Timer>
+        <Timer onStop={() => console.log('onStop hook')}>
           {({ stop }) => (
             <React.Fragment>
-              <Text>
-                  <Timer.Hours /> hours
-                  <Timer.Minutes /> minutes
-                  <Timer.Seconds /> seconds
+              <Text style={{ fontSize: 25, marginBottom: 20}}>
+                  <Timer.Hours />:
+                  <Timer.Minutes />: 
+                  <Timer.Seconds />
               </Text>
               <Text>
               <Button
@@ -272,10 +272,11 @@ export default function BeginSession() {
                 contentStyle={{ marginTop: 10 }}
                 icon="close-box"
                 mode="contained"
-                onPress={stop, ResultHandler}
+                onTouchStart={stop}
+                onTouchEnd={ResultHandler}
                 >
                   Save and exit
-                </Button>
+              </Button>
               </Text>
             </React.Fragment>
           )}
@@ -301,6 +302,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   containerStopwatch: {
+    marginTop: 20,
+    alignItems: "center",
     alignSelf: 'center',
   },
   stopWatchButtons: {
