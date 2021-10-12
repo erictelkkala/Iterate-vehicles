@@ -6,11 +6,18 @@ import {
   Text,
   SafeAreaView,
   Alert,
+  ActivityIndicator,
 } from 'react-native'
 import { Avatar, Button, IconButton, useTheme } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { addInfo, fetchAllInfo } from '../database/db'
+<<<<<<< Updated upstream
 import Timer from 'react-compound-timer'
+=======
+import Timer, { getTimeParts } from 'react-compound-timer'
+import { v4 as uuidv4 } from 'uuid'
+import { add } from 'react-native-reanimated'
+>>>>>>> Stashed changes
 
 // Main function
 
@@ -31,9 +38,41 @@ export default function BeginSession() {
   const [latitude, setLatitude] = useState(0.0)
   const [longitude, setLongitude] = useState(0.0)
   const [currentDate, setDate] = useState('')
+<<<<<<< Updated upstream
+=======
+  const [currentTimer, setCurrentTimer] = useState('')
+
+>>>>>>> Stashed changes
   // const [UserID, setUserID] = useState(0)
   //  const [SessionID, setSessionID] = useState(0)
 
+  //This sends data to restful service
+  async function addData() {
+    const response = await fetch(
+      'http://10.0.2.2:8080/rest/counterservice/addjsonfish',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          car: carCount,
+          bus: busCount,
+          trucks: truckCount,
+          motorcycles: mopedCount,
+          sessionId: SessionID,
+          userId: UserID,
+          date: currentDate,
+          longitude: longitude,
+          latitude: latitude,
+          timer: '2',
+        }),
+      }
+    )
+
+    const responseData = await response.json()
+    console.log('This is the new entry')
+    console.log(responseData)
+    setCounters((counters) => [...counters, responseData])
+  }
   useEffect(() => {
     var date = new Date().getDate()
     var month = new Date().getMonth() + 1
@@ -42,7 +81,7 @@ export default function BeginSession() {
     setLatitude(global.latitudeVar)
     setLongitude(global.longitudeVar)
   })
-
+  //handler for results to send into sqlite database
   const ResultHandler = () => {
     setCounters((counters) => [
       ...counters,
@@ -56,23 +95,26 @@ export default function BeginSession() {
         latitude: setLatitude,
       },
     ])
+
     addResultsToDatabase()
+
     setTimeout(() => {
       Alert.alert(
-        "Your session is successfully saved!",
-        "You will now return to main page",
+        'Your session is successfully saved!',
+        'You will now return to main page',
         [
           {
-            text: "Return",
+            text: 'Return',
             onPress: () => {
-              navigation.navigate("Home")
+              navigation.navigate('Home')
             },
           },
-        ],
+        ]
       )
     }, 10)
+    addData()
   }
-
+  //adding results to sqlite database
   async function addResultsToDatabase() {
     try {
       const dbResult = await addInfo(
@@ -256,22 +298,22 @@ export default function BeginSession() {
         <Timer onStop={() => console.log('onStop hook')}>
           {({ stop }) => (
             <React.Fragment>
-              <Text style={{ fontSize: 25, marginBottom: 20}}>
-                  <Timer.Hours />:
-                  <Timer.Minutes />: 
-                  <Timer.Seconds />
+              <Text style={{ fontSize: 25, marginBottom: 20 }}>
+                <Timer.Hours />:
+                <Timer.Minutes />:
+                <Timer.Seconds />
               </Text>
               <Text>
-              <Button
-                style={{ marginTop: 50, width: 300, height: 60 }}
-                contentStyle={{ marginTop: 10 }}
-                icon="close-box"
-                mode="contained"
-                onTouchStart={stop}
-                onTouchEnd={ResultHandler}
+                <Button
+                  style={{ marginTop: 50, width: 300, height: 60 }}
+                  contentStyle={{ marginTop: 10 }}
+                  icon="close-box"
+                  mode="contained"
+                  onTouchStart={stop}
+                  onTouchEnd={ResultHandler}
                 >
                   Save and exit
-              </Button>
+                </Button>
               </Text>
             </React.Fragment>
           )}
@@ -298,7 +340,7 @@ const styles = StyleSheet.create({
   },
   containerStopwatch: {
     marginTop: 20,
-    alignItems: "center",
+    alignItems: 'center',
     alignSelf: 'center',
   },
   stopWatchButtons: {
