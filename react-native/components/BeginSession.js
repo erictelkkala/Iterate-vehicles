@@ -3,15 +3,15 @@ import {
   View,
   StyleSheet,
   TouchableHighlight,
-  Text,
   SafeAreaView,
   Alert,
 } from 'react-native'
-import { Avatar, Button, IconButton, useTheme } from 'react-native-paper'
+import { Avatar, Button, IconButton, Text, useTheme } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { addInfo, fetchAllInfo } from '../database/db'
 import Timer, { getTimeParts } from 'react-compound-timer'
 import { v4 as uuidv4 } from 'uuid'
+import { useElapsedTime } from 'use-elapsed-time'
 
 // Main function
 
@@ -63,16 +63,16 @@ export default function BeginSession() {
     addResultsToDatabase()
     setTimeout(() => {
       Alert.alert(
-        "Your session is successfully saved!",
-        "You will now return to main page",
+        'Your session is successfully saved!',
+        'You will now return to main page',
         [
           {
-            text: "Return",
+            text: 'Return',
             onPress: () => {
-              navigation.navigate("Home")
+              navigation.navigate('Home')
             },
           },
-        ],
+        ]
       )
     }, 10)
   }
@@ -144,115 +144,125 @@ export default function BeginSession() {
       settruckCount((truckCount) => truckCount + 1)
     }
   }
+  // New timer function
+  const Timer1 = () => {
+    const { elapsedTime } = useElapsedTime({ isPlaying: true })
+
+    // Returns a rounded value of seconds
+    return Math.round(elapsedTime)
+  }
 
   return (
     <View style={styles.main}>
-      {/* First counter */}
-      <View style={styles.container}>
-        <IconButton
-          style={styles.icon}
-          size={30}
-          color={theme.colors.grey}
-          icon="car-side"
-          onPress={() => {
-            carGuess('lower')
-          }}
-        ></IconButton>
-        <Avatar.Text
-          style={styles.counter}
-          size={70}
-          label={carCount}
-        ></Avatar.Text>
-        <IconButton
-          style={styles.icon}
-          size={50}
-          color={theme.colors.grey}
-          icon="car-side"
-          onPress={() => {
-            carGuess('higher')
-          }}
-        ></IconButton>
-      </View>
+      {/* Counter container */}
+      <View>
+        {/* First counter */}
+        <View style={styles.container}>
+          <IconButton
+            style={styles.icon}
+            size={30}
+            color={theme.colors.grey}
+            icon="car-side"
+            onPress={() => {
+              carGuess('lower')
+            }}
+          ></IconButton>
+          <Avatar.Text
+            style={styles.counter}
+            size={70}
+            label={carCount}
+          ></Avatar.Text>
+          <IconButton
+            style={styles.icon}
+            size={50}
+            color={theme.colors.grey}
+            icon="car-side"
+            onPress={() => {
+              carGuess('higher')
+            }}
+          ></IconButton>
+        </View>
 
-      {/* Second counter */}
-      <View style={styles.container}>
-        <IconButton
-          style={styles.icon}
-          size={30}
-          color={theme.colors.grey}
-          icon="moped"
-          onPress={() => {
-            mopedGuess('lower')
-          }}
-        ></IconButton>
-        <Avatar.Text
-          style={styles.counter}
-          size={70}
-          label={mopedCount}
-        ></Avatar.Text>
-        <IconButton
-          style={styles.icon}
-          size={50}
-          color={theme.colors.grey}
-          icon="moped"
-          onPress={() => {
-            mopedGuess('higher')
-          }}
-        ></IconButton>
-      </View>
+        {/* Second counter */}
+        <View style={styles.container}>
+          <IconButton
+            style={styles.icon}
+            size={30}
+            color={theme.colors.grey}
+            icon="moped"
+            onPress={() => {
+              mopedGuess('lower')
+            }}
+          ></IconButton>
+          <Avatar.Text
+            style={styles.counter}
+            size={70}
+            label={mopedCount}
+          ></Avatar.Text>
+          <IconButton
+            style={styles.icon}
+            size={50}
+            color={theme.colors.grey}
+            icon="moped"
+            onPress={() => {
+              mopedGuess('higher')
+            }}
+          ></IconButton>
+        </View>
 
-      {/* Third counter */}
-      <View style={styles.container}>
-        <IconButton
-          style={styles.icon}
-          size={30}
-          color={theme.colors.grey}
-          icon="bus-side"
-          onPress={() => {
-            busGuess('lower')
-          }}
-        ></IconButton>
-        <Avatar.Text
-          style={styles.counter}
-          size={70}
-          label={busCount}
-        ></Avatar.Text>
-        <IconButton
-          style={styles.icon}
-          size={50}
-          color={theme.colors.grey}
-          icon="bus-side"
-          onPress={() => {
-            busGuess('higher')
-          }}
-        ></IconButton>
-      </View>
+        {/* Third counter */}
+        <View style={styles.container}>
+          <IconButton
+            style={styles.icon}
+            size={30}
+            color={theme.colors.grey}
+            icon="bus-side"
+            onPress={() => {
+              busGuess('lower')
+            }}
+          ></IconButton>
+          <Avatar.Text
+            style={styles.counter}
+            size={70}
+            label={busCount}
+          ></Avatar.Text>
+          <IconButton
+            style={styles.icon}
+            size={50}
+            color={theme.colors.grey}
+            icon="bus-side"
+            onPress={() => {
+              busGuess('higher')
+            }}
+          ></IconButton>
+        </View>
 
-      {/* Fourth counter */}
-      <View style={styles.container}>
-        <IconButton
-          style={styles.icon}
-          size={30}
-          color={theme.colors.grey}
-          icon="dump-truck"
-          onPress={() => {
-            truckGuess('lower')
-          }}
-        ></IconButton>
-        <Avatar.Text
-          style={styles.counter}
-          size={70}
-          label={truckCount}
-        ></Avatar.Text>
-        <IconButton
-          style={styles.icon}
-          size={50}
-          color={theme.colors.grey}
-          icon="dump-truck"
-          onPress={() => {
-            truckGuess('higher')
-          }}
-        ></IconButton>
+        {/* Fourth counter */}
+        <View style={styles.container}>
+          <IconButton
+            style={styles.icon}
+            size={30}
+            color={theme.colors.grey}
+            icon="dump-truck"
+            onPress={() => {
+              truckGuess('lower')
+            }}
+          ></IconButton>
+          <Avatar.Text
+            style={styles.counter}
+            size={70}
+            label={truckCount}
+          ></Avatar.Text>
+          <IconButton
+            style={styles.icon}
+            size={50}
+            color={theme.colors.grey}
+            icon="dump-truck"
+            onPress={() => {
+              truckGuess('higher')
+            }}
+          ></IconButton>
+        </View>
       </View>
 
       {/* Save and exit button */}
@@ -261,26 +271,28 @@ export default function BeginSession() {
         <Timer onStop={() => console.log('onStop hook')}>
           {({ stop }) => (
             <React.Fragment>
-              <Text style={{ fontSize: 25, marginBottom: 20}}>
-                  <Timer.Hours />:
-                  <Timer.Minutes />: 
-                  <Timer.Seconds />
+              <Text style={{ fontSize: 25, marginBottom: 20 }}>
+                <Timer.Hours />:
+                <Timer.Minutes />:
+                <Timer.Seconds />
               </Text>
               <Text>
-              <Button
-                style={{ marginTop: 50, width: 300, height: 60 }}
-                contentStyle={{ marginTop: 10 }}
-                icon="close-box"
-                mode="contained"
-                onTouchStart={stop}
-                onTouchEnd={ResultHandler}
+                <Button
+                  style={{ marginTop: 50, width: 300, height: 60 }}
+                  contentStyle={{ marginTop: 10 }}
+                  icon="close-box"
+                  mode="contained"
+                  onTouchStart={stop}
+                  onTouchEnd={ResultHandler}
                 >
                   Save and exit
-              </Button>
+                </Button>
               </Text>
             </React.Fragment>
           )}
         </Timer>
+        {/* New timer */}
+        <Text>{Timer1()}</Text>
       </View>
     </View>
   )
@@ -303,7 +315,7 @@ const styles = StyleSheet.create({
   },
   containerStopwatch: {
     marginTop: 20,
-    alignItems: "center",
+    alignItems: 'center',
     alignSelf: 'center',
   },
   stopWatchButtons: {
