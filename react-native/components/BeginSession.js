@@ -5,6 +5,7 @@ import {
   TouchableHighlight,
   Text,
   SafeAreaView,
+  Alert,
 } from 'react-native'
 import { Avatar, Button, IconButton, useTheme } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
@@ -40,8 +41,6 @@ export default function BeginSession() {
     setDate(date + '/' + month + '/' + year)
     setLatitude(global.latitudeVar)
     setLongitude(global.longitudeVar)
-    console.log(latitude)
-    console.log(longitude)
   })
 
   const ResultHandler = () => {
@@ -58,7 +57,20 @@ export default function BeginSession() {
       },
     ])
     addResultsToDatabase()
-    navigation.navigate('View Sessions')
+    setTimeout(() => {
+      Alert.alert(
+        "Your session is successfully saved!",
+        "You will now return to main page",
+        [
+          {
+            text: "Return",
+            onPress: () => {
+              navigation.navigate("Home")
+            },
+          },
+        ],
+      )
+    }, 10)
   }
 
   async function addResultsToDatabase() {
@@ -130,21 +142,6 @@ export default function BeginSession() {
 
   return (
     <View style={styles.main}>
-      {/* Timer / Stopwatch */}
-      <View style={styles.containerStopwatch}>
-        <Timer>
-          <Text>
-            <Timer.Days />:
-            <Timer.Hours />:
-            <Timer.Minutes />:
-            <Timer.Seconds />
-          </Text>
-        </Timer>
-      </View>
-      <View>
-        <Text>Global variable : {global.latitudeVar}</Text>
-        <Text>Global variable : {global.longitudeVar}</Text>
-      </View>
       {/* First counter */}
       <View style={styles.container}>
         <IconButton
@@ -254,16 +251,30 @@ export default function BeginSession() {
       </View>
 
       {/* Save and exit button */}
-      <View style={styles.container}>
-        <Button
-          style={{ marginTop: 50, width: 300, height: 60 }}
-          contentStyle={{ marginTop: 10 }}
-          icon="close-box"
-          mode="contained"
-          onPress={ResultHandler}
-        >
-          Save and exit
-        </Button>
+      {/* Timer / Stopwatch */}
+      <View style={styles.containerStopwatch}>
+        <Timer>
+          {({ stop }) => (
+            <React.Fragment>
+              <Text>
+                  <Timer.Hours /> hours
+                  <Timer.Minutes /> minutes
+                  <Timer.Seconds /> seconds
+              </Text>
+              <Text>
+              <Button
+                style={{ marginTop: 50, width: 300, height: 60 }}
+                contentStyle={{ marginTop: 10 }}
+                icon="close-box"
+                mode="contained"
+                onPress={stop, ResultHandler}
+                >
+                  Save and exit
+                </Button>
+              </Text>
+            </React.Fragment>
+          )}
+        </Timer>
       </View>
     </View>
   )
