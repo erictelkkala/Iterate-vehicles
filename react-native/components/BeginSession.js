@@ -10,14 +10,16 @@ import {
 import { Avatar, Button, IconButton, useTheme } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { addInfo, fetchAllInfo } from '../database/db'
-import Timer from 'react-compound-timer'
+import Timer, { getTimeParts } from 'react-compound-timer'
+import { v4 as uuidv4 } from 'uuid'
 
 // Main function
 
 export default function BeginSession() {
   //Some variables for time being.
-  let SessionID = 1
   let UserID = 1
+  var SessionID = uuidv4()
+  var Timervar = '12:21:00'
 
   // Theme import
   const theme = useTheme()
@@ -31,8 +33,8 @@ export default function BeginSession() {
   const [latitude, setLatitude] = useState(0.0)
   const [longitude, setLongitude] = useState(0.0)
   const [currentDate, setDate] = useState('')
+  const [currentTimer, setCurrentTimer] = useState('')
   // const [UserID, setUserID] = useState(0)
-  //  const [SessionID, setSessionID] = useState(0)
 
   useEffect(() => {
     var date = new Date().getDate()
@@ -51,9 +53,11 @@ export default function BeginSession() {
         bus: setbusCount,
         trucks: settruckCount,
         motorcycles: setmopedCount,
+        SessionID: SessionID,
         date: setDate,
         longitude: setLongitude,
         latitude: setLatitude,
+        Timervar: Timervar,
       },
     ])
     addResultsToDatabase()
@@ -80,11 +84,12 @@ export default function BeginSession() {
         mopedCount,
         busCount,
         truckCount,
-        UserID,
         SessionID,
+        UserID,
         currentDate,
         longitude,
-        latitude
+        latitude,
+        Timervar
       )
       console.log(dbResult)
     } catch (err) {
