@@ -21,6 +21,7 @@
     "react-compound-timer": "^1.2.0",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-chart-kit": "^6.11.0",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-maps": "0.28.0",
     "react-native-paper": "^4.9.2",
@@ -28,6 +29,7 @@
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-stopwatch-timer": "^0.0.21",
+    "react-native-svg": "^12.1.1",
     "react-native-uuid": "^2.0.1",
     "react-native-web": "~0.13.12"
   },
