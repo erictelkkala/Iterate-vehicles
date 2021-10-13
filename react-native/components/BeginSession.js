@@ -35,7 +35,6 @@ export default function BeginSession() {
   const [latitude, setLatitude] = useState(0.0)
   const [longitude, setLongitude] = useState(0.0)
   const [currentDate, setDate] = useState('')
-  const [currentTimer, setCurrentTimer] = useState('')
 
   // const [UserID, setUserID] = useState(0)
 
@@ -68,10 +67,16 @@ export default function BeginSession() {
   }
 
   useEffect(() => {
-    var date = new Date().getDate()
-    var month = new Date().getMonth() + 1
-    var year = new Date().getFullYear()
-    setDate(date + '/' + month + '/' + year)
+    // Sets the starting time
+    var today = new Date()
+    var date =
+      today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
+    var time =
+      today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+    // Joining the two halves together
+    var dateTime = date + ' ' + time
+    setDate(dateTime)
+
     setLatitude(global.latitudeVar)
     setLongitude(global.longitudeVar)
   })

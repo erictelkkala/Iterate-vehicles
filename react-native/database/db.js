@@ -7,7 +7,7 @@ export const init = () => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'create table if not exists infoTemp (ID integer primary key autoincrement not null, car integer not null, bus integer not null, trucks integer not null, motorcycles integer not null, SessionID integer not null, UserID integer not null, Date text not null, longitude real not null,  latitude real not null, Timer text not null);',
+        'create table if not exists infoTemp (ID integer primary key autoincrement not null, car integer not null, bus integer not null, trucks integer not null, motorcycles integer not null, SessionID integer not null, UserID integer not null, Date text not null, longitude real not null, latitude real not null, Timer text not null);',
         [],
         () => {
           resolve()
@@ -36,7 +36,7 @@ export const addInfo = (
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'insert into infoTemp(car, bus, trucks, motorcycles, SessionID, UserID, Date, longitude, latitude,Timer) values(?,?,?,?,?,?,?,?,?,?);',
+        'insert into infoTemp(car, bus, trucks, motorcycles, SessionID, UserID, Date, longitude, latitude, Timer) values(?,?,?,?,?,?,?,?,?,?);',
         [
           car,
           bus,

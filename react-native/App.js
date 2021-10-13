@@ -18,7 +18,6 @@ import ViewSingleSession from './components/ViewSingleSession'
 import { init } from './database/db'
 
 import * as Device from 'expo-device'
-import ViewSingleSession from './components/ViewSingleSession'
 
 // Initiating the database from ./database
 init()
@@ -92,7 +91,10 @@ function App() {
           <Stack.Screen name="Start Session" component={StartSessionsScreen} />
           <Stack.Screen name="View Sessions" component={ViewSessionsScreen} />
           <Stack.Screen name="Begin Session" component={BeginSession} />
-          <Stack.Screen name="View Single Session" component={ViewSingleSession} />
+          <Stack.Screen
+            name="View Single Session"
+            component={ViewSingleSession}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

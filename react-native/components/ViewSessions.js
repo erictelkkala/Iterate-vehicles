@@ -135,9 +135,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   buttonStyles: {
-
-    width: 170, 
-    alignSelf: "center",
-    marginTop: 20
-  }
- })
+    width: 170,
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+})

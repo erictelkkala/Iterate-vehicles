@@ -30,7 +30,14 @@ export default function ViewSingleSession() {
   }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', alignSelf: "center" }}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+      }}
+    >
       <View>
         <Button title="Read all" onPress={readAllDataToo} />
         <FlatList
