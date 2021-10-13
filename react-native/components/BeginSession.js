@@ -88,13 +88,21 @@ export default function BeginSession() {
 
   // Created a second useEffect hook since made the app hang if date functions were in the first one
   useEffect(() => {
-    // Sets the starting time
-    const start = dayjs().add(3, 'hour')
+    // Sets the starting time and adds 3 hours to it
+    // That's because Expo doesn't support Android intl components, so cannot use timezone functions
+    const start = dayjs().add(3, 'hour').toISOString()
     setDate(start)
-    console.log(start)
+    console.log('start:' + start)
   }, [])
+
+  const SaveEndDate = () => {
+    const end = dayjs().add(3, 'hour').toISOString()
+    setEndDate(end)
+    console.log('End:' + end)
+  }
   //handler for results to send into sqlite database
   const ResultHandler = () => {
+    SaveEndDate();
     setCounters((counters) => [
       ...counters,
       {
