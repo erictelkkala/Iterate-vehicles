@@ -71,7 +71,7 @@ export default function BeginSession() {
   // Created a second useEffect hook since made the app hang if date functions were in the first one
   useEffect(() => {
     // Sets the starting time
-    const start = dayjs()
+    const start = dayjs().add(3, 'hour').toString()
     setDate(start)
     console.log(start)
   }, [])
