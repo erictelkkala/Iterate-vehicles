@@ -3,15 +3,17 @@ import {
   View,
   StyleSheet,
   TouchableHighlight,
-  Text,
   SafeAreaView,
   Alert,
+  ActivityIndicator,
 } from 'react-native'
-import { Avatar, Button, IconButton, useTheme } from 'react-native-paper'
+import { Avatar, Button, IconButton, Text, useTheme } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { addInfo, fetchAllInfo } from '../database/db'
+import { add } from 'react-native-reanimated'
 import Timer, { getTimeParts } from 'react-compound-timer'
 import { v4 as uuidv4 } from 'uuid'
+import { useElapsedTime } from 'use-elapsed-time'
 
 // Main function
 
@@ -34,6 +36,7 @@ export default function BeginSession() {
   const [longitude, setLongitude] = useState(0.0)
   const [currentDate, setDate] = useState('')
   const [currentTimer, setCurrentTimer] = useState('')
+
   // const [UserID, setUserID] = useState(0)
 
   //This sends data to restful service
@@ -63,7 +66,6 @@ export default function BeginSession() {
     console.log(responseData)
     setCounters((counters) => [...counters, responseData])
   }
-
   useEffect(() => {
     var date = new Date().getDate()
     var month = new Date().getMonth() + 1
@@ -72,7 +74,7 @@ export default function BeginSession() {
     setLatitude(global.latitudeVar)
     setLongitude(global.longitudeVar)
   })
-
+  //handler for results to send into sqlite database
   const ResultHandler = () => {
     setCounters((counters) => [
       ...counters,
@@ -88,7 +90,9 @@ export default function BeginSession() {
         Timervar: Timervar,
       },
     ])
+
     addResultsToDatabase()
+
     setTimeout(() => {
       Alert.alert(
         'Your session is successfully saved!',
@@ -103,8 +107,9 @@ export default function BeginSession() {
         ]
       )
     }, 10)
+    addData()
   }
-
+  //adding results to sqlite database
   async function addResultsToDatabase() {
     try {
       const dbResult = await addInfo(
@@ -172,115 +177,125 @@ export default function BeginSession() {
       settruckCount((truckCount) => truckCount + 1)
     }
   }
+  // New timer function
+  const Timer1 = () => {
+    const { elapsedTime } = useElapsedTime({ isPlaying: true })
+
+    // Returns a rounded value of seconds
+    return Math.round(elapsedTime)
+  }
 
   return (
     <View style={styles.main}>
-      {/* First counter */}
-      <View style={styles.container}>
-        <IconButton
-          style={styles.icon}
-          size={30}
-          color={theme.colors.grey}
-          icon="car-side"
-          onPress={() => {
-            carGuess('lower')
-          }}
-        ></IconButton>
-        <Avatar.Text
-          style={styles.counter}
-          size={70}
-          label={carCount}
-        ></Avatar.Text>
-        <IconButton
-          style={styles.icon}
-          size={50}
-          color={theme.colors.grey}
-          icon="car-side"
-          onPress={() => {
-            carGuess('higher')
-          }}
-        ></IconButton>
-      </View>
+      {/* Counter container */}
+      <View>
+        {/* First counter */}
+        <View style={styles.container}>
+          <IconButton
+            style={styles.icon}
+            size={30}
+            color={theme.colors.grey}
+            icon="car-side"
+            onPress={() => {
+              carGuess('lower')
+            }}
+          ></IconButton>
+          <Avatar.Text
+            style={styles.counter}
+            size={70}
+            label={carCount}
+          ></Avatar.Text>
+          <IconButton
+            style={styles.icon}
+            size={50}
+            color={theme.colors.grey}
+            icon="car-side"
+            onPress={() => {
+              carGuess('higher')
+            }}
+          ></IconButton>
+        </View>
 
-      {/* Second counter */}
-      <View style={styles.container}>
-        <IconButton
-          style={styles.icon}
-          size={30}
-          color={theme.colors.grey}
-          icon="moped"
-          onPress={() => {
-            mopedGuess('lower')
-          }}
-        ></IconButton>
-        <Avatar.Text
-          style={styles.counter}
-          size={70}
-          label={mopedCount}
-        ></Avatar.Text>
-        <IconButton
-          style={styles.icon}
-          size={50}
-          color={theme.colors.grey}
-          icon="moped"
-          onPress={() => {
-            mopedGuess('higher')
-          }}
-        ></IconButton>
-      </View>
+        {/* Second counter */}
+        <View style={styles.container}>
+          <IconButton
+            style={styles.icon}
+            size={30}
+            color={theme.colors.grey}
+            icon="moped"
+            onPress={() => {
+              mopedGuess('lower')
+            }}
+          ></IconButton>
+          <Avatar.Text
+            style={styles.counter}
+            size={70}
+            label={mopedCount}
+          ></Avatar.Text>
+          <IconButton
+            style={styles.icon}
+            size={50}
+            color={theme.colors.grey}
+            icon="moped"
+            onPress={() => {
+              mopedGuess('higher')
+            }}
+          ></IconButton>
+        </View>
 
-      {/* Third counter */}
-      <View style={styles.container}>
-        <IconButton
-          style={styles.icon}
-          size={30}
-          color={theme.colors.grey}
-          icon="bus-side"
-          onPress={() => {
-            busGuess('lower')
-          }}
-        ></IconButton>
-        <Avatar.Text
-          style={styles.counter}
-          size={70}
-          label={busCount}
-        ></Avatar.Text>
-        <IconButton
-          style={styles.icon}
-          size={50}
-          color={theme.colors.grey}
-          icon="bus-side"
-          onPress={() => {
-            busGuess('higher')
-          }}
-        ></IconButton>
-      </View>
+        {/* Third counter */}
+        <View style={styles.container}>
+          <IconButton
+            style={styles.icon}
+            size={30}
+            color={theme.colors.grey}
+            icon="bus-side"
+            onPress={() => {
+              busGuess('lower')
+            }}
+          ></IconButton>
+          <Avatar.Text
+            style={styles.counter}
+            size={70}
+            label={busCount}
+          ></Avatar.Text>
+          <IconButton
+            style={styles.icon}
+            size={50}
+            color={theme.colors.grey}
+            icon="bus-side"
+            onPress={() => {
+              busGuess('higher')
+            }}
+          ></IconButton>
+        </View>
 
-      {/* Fourth counter */}
-      <View style={styles.container}>
-        <IconButton
-          style={styles.icon}
-          size={30}
-          color={theme.colors.grey}
-          icon="dump-truck"
-          onPress={() => {
-            truckGuess('lower')
-          }}
-        ></IconButton>
-        <Avatar.Text
-          style={styles.counter}
-          size={70}
-          label={truckCount}
-        ></Avatar.Text>
-        <IconButton
-          style={styles.icon}
-          size={50}
-          color={theme.colors.grey}
-          icon="dump-truck"
-          onPress={() => {
-            truckGuess('higher')
-          }}
-        ></IconButton>
+        {/* Fourth counter */}
+        <View style={styles.container}>
+          <IconButton
+            style={styles.icon}
+            size={30}
+            color={theme.colors.grey}
+            icon="dump-truck"
+            onPress={() => {
+              truckGuess('lower')
+            }}
+          ></IconButton>
+          <Avatar.Text
+            style={styles.counter}
+            size={70}
+            label={truckCount}
+          ></Avatar.Text>
+          <IconButton
+            style={styles.icon}
+            size={50}
+            color={theme.colors.grey}
+            icon="dump-truck"
+            onPress={() => {
+              truckGuess('higher')
+            }}
+          ></IconButton>
+        </View>
       </View>
 
       {/* Save and exit button */}

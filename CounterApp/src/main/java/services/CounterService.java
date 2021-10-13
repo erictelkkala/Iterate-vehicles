@@ -37,7 +37,7 @@ public class CounterService {
 		@Path("/addjsonfish")
 		public Info receiveJsonFish(Info info) {
 			System.out.println("bs");
-			String sql="insert into info(car, bus, trucks, motorcycles, SessionID, UserID, Date, longitude,latitude) values(?,?,?,?,?,?,?,?,?)";
+			String sql="insert into info(car, bus, trucks, motorcycles, sessionId, userId, date, longitude,latitude,timer) values(?,?,?,?,?,?,?,?,?,?)";
 			Connection conn=null;
 			try {
 			    if (SystemProperty.environment.value() ==SystemProperty.Environment.Value.Production) {  
@@ -59,11 +59,12 @@ public class CounterService {
 				pstmt.setInt(2, info.getBus());
 				pstmt.setInt(3, info.getTrucks());
 				pstmt.setInt(4, info.getMotorcycles());
-				pstmt.setInt(5, info.getSessionId());
+				pstmt.setString(5, info.getSessionId());
 				pstmt.setInt(6, info.getUserId());
 				pstmt.setString(7, info.getDate());
 				pstmt.setFloat(8, info.getLongitude());
 				pstmt.setFloat(9, info.getLatitude());
+				pstmt.setString(10, info.getTimer());
 				pstmt.execute();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -112,11 +113,12 @@ public class CounterService {
 					f.setBus(RS.getInt("bus"));
 					f.setTrucks(RS.getInt("trucks"));
 					f.setMotorcycles(RS.getInt("motorcycles"));
-					f.setSessionId(RS.getInt("SessionID"));
+					f.setSessionId(RS.getString("SessionID"));
 					f.setUserId(RS.getInt("UserID"));
 					f.setDate(RS.getString("Date"));
 					f.setLongitude(RS.getFloat("longitude"));
 					f.setLatitude(RS.getFloat("latitude"));
+					f.setTimer(RS.getString("Timer"));
 					list.add(f);
 				}
 			} catch (SQLException e) {
