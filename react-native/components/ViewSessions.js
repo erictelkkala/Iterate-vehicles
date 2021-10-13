@@ -77,7 +77,7 @@ export default function ViewSessionsScreen() {
           renderItem={(itemData) => (
             <View>
               <Text style={styles.counters}>
-                Date: {itemData.item.Date} {itemData.item.Timer}
+                Date: {itemData.item.Date} {itemData.item.endDate}
               </Text>
               <Text>Map goes here</Text>
               <Button
@@ -98,7 +98,7 @@ export default function ViewSessionsScreen() {
           renderItem={(itemData) => (
             <View>
               <Text style={styles.counters}>
-                Date: {itemData.item.date} {itemData.item.timer}
+                Date: {itemData.item.date} {itemData.item.endDate}
               </Text>
               <Text>Map goes here</Text>
               <Button

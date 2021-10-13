@@ -19,7 +19,7 @@ import { useElapsedTime } from 'use-elapsed-time'
 
 export default function BeginSession() {
   //Some variables for time being.
-  let UserID = 1
+
   var SessionID = uuidv4()
   var Timervar = '12:21:00'
 
@@ -35,8 +35,8 @@ export default function BeginSession() {
   const [latitude, setLatitude] = useState(0.0)
   const [longitude, setLongitude] = useState(0.0)
   const [currentDate, setDate] = useState('')
+  const [endDate, setEndDate] = useState('')
 
-  // const [UserID, setUserID] = useState(0)
 
   //This sends data to restful service
   async function addData() {
@@ -51,11 +51,10 @@ export default function BeginSession() {
           trucks: truckCount,
           motorcycles: mopedCount,
           sessionId: SessionID,
-          userId: UserID,
           date: currentDate,
           longitude: longitude,
           latitude: latitude,
-          timer: '2',
+          endDate: '2',
         }),
       }
     )
@@ -93,7 +92,7 @@ export default function BeginSession() {
         date: setDate,
         longitude: setLongitude,
         latitude: setLatitude,
-        Timervar: Timervar,
+        endDate: Timervar,
       },
     ])
 
@@ -124,11 +123,10 @@ export default function BeginSession() {
         busCount,
         truckCount,
         SessionID,
-        UserID,
         currentDate,
         longitude,
         latitude,
-        Timervar
+        endDate
       )
       console.log(dbResult)
     } catch (err) {

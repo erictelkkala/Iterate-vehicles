@@ -52,7 +52,7 @@ export default function ViewSingleSession() {
               </Text>
               <Text style={styles.counters}>
                 Date: {itemData.item.Date} {'  '}
-                Time: {itemData.item.Timer}
+                Time: {itemData.item.endDate}
               </Text>
               <BarChart
                 style={styles.styleChart}
