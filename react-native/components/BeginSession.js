@@ -37,6 +37,7 @@ export default function BeginSession() {
   const [currentDate, setDate] = useState('')
   const [endDate, setEndDate] = useState('')
 
+
   //This sends data to restful service
   async function addData() {
     const response = await fetch(
@@ -63,11 +64,18 @@ export default function BeginSession() {
     console.log(responseData)
     setCounters((counters) => [...counters, responseData])
   }
+
   useEffect(() => {
-    var date = new Date().getDate()
-    var month = new Date().getMonth() + 1
-    var year = new Date().getFullYear()
-    setDate(date + '/' + month + '/' + year)
+    // Sets the starting time
+    var today = new Date()
+    var date =
+      today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
+    var time =
+      today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+    // Joining the two halves together
+    var dateTime = date + ' ' + time
+    setDate(dateTime)
+
     setLatitude(global.latitudeVar)
     setLongitude(global.longitudeVar)
   })

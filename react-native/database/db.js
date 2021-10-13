@@ -35,7 +35,7 @@ export const addInfo = (
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        'insert into infoTemp(car, bus, trucks, motorcycles, SessionID, Date, longitude, latitude,endDate) values(?,?,?,?,?,?,?,?,?);',
+        'insert into infoTemp(car, bus, trucks, motorcycles, SessionID, Date, longitude, latitude, endDate) values(?,?,?,?,?,?,?,?,?);',
         [
           car,
           bus,
