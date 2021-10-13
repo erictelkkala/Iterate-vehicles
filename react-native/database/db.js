@@ -27,7 +27,7 @@ export const addInfo = (
   trucks,
   motorcycles,
   SessionID,
-  Date,
+  startDate,
   longitude,
   latitude,
   endDate
@@ -42,7 +42,7 @@ export const addInfo = (
           trucks,
           motorcycles,
           SessionID,
-          Date,
+          startDate,
           longitude,
           latitude,
           endDate,
