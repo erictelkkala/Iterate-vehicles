@@ -3,7 +3,6 @@ import {
   View,
   Text,
   FlatList,
-
   StyleSheet,
   Dimensions,
 } from 'react-native'
@@ -31,23 +30,23 @@ export default function ViewSessionsScreen() {
   }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', alignSelf: "center" }}>
       <View>
         <Button
-          style={styles.buttonStyles}
-          contentStyle={{ height: 60 }}
-          mode="contained"
-          onPress={readAllDataToo}
-        >
-          Local Sessions
+              mode="contained"
+              style={styles.buttonStyles}
+              contentStyle={{ height: 60 }}
+              onPress={readAllDataToo}
+              >
+                Local Sessions
         </Button>
         <Button
-          style={styles.buttonStyles}
-          contentStyle={{ height: 60 }}
-          mode="contained"
-          onPress={readAllDataToo}
-        >
-          Cloud Sessions
+              mode="contained"
+              style={styles.buttonStyles}
+              contentStyle={{ height: 60 }}
+              onPress={readAllDataToo}
+              >
+                Cloud Sessions
         </Button>
         <FlatList
           // keyExtractor={item=>item.id.toString()}
@@ -55,60 +54,17 @@ export default function ViewSessionsScreen() {
           data={readAllData}
           renderItem={(itemData) => (
             <View>
-              <BarChart
-                style={styles.styleChart}
-                data={{
-                  labels: ['Car', 'Bus', 'Trucks', 'Motorcycles'],
-                  datasets: [
-                    {
-                      data: [
-                        itemData.item.car,
-                        itemData.item.bus,
-                        itemData.item.trucks,
-                        itemData.item.motorcycles,
-                      ],
-                    },
-                  ],
-                }}
-                width={Dimensions.get('window').width - 10}
-                height={200}
-                yAxisInterval={2}
-                segments={3}
-                showValuesOnTopOfBars={true}
-                chartConfig={{
-                  decimalPlaces: 0,
-                  backgroundColor: '#1cc910',
-                  backgroundGradientFrom: '#6E32D1',
-                  backgroundGradientTo: '#6E32D1',
-                  color: (opacity = 255) => 'white',
-                  style: {
-                    borderRadius: 12,
-                    padding: 10,
-                  },
-                }}
-              />
               <Text style={styles.counters}>
-                Time: {itemData.item.Date} {' '}{itemData.item.Timer}
+                Date: {itemData.item.Date} {' '}{itemData.item.Timer}
               </Text>
-              <Text style={styles.counters}>
-                SessionID: {itemData.item.SessionID}
-                {'  '}
-                UserID:{itemData.item.UserID}
-                {'  '}
-                longitude:{itemData.item.longitude}
-                {'  '}
-                latitude:{itemData.item.latitude}
-                {'  '}
-                Time: {itemData.item.Timer}
-              </Text>
-              <Text style={styles.counters}>
-                Date: {itemData.item.Date} {'  '}
+              <Text>
+                Map goes here
               </Text>
               <Button
-                style={{ marginTop: 20, width: 170, alignSelf: "center" }}
-                contentStyle={{ height: 60 }}
-                mode="contained"
-                onPress={() => navigation.navigate('View Single Session')}
+              mode="contained"
+              style={styles.buttonStyles}
+              contentStyle={{ height: 60 }}
+              onPress={() => navigation.navigate('View Single Session')}
               >
                 Details
               </Button>
@@ -122,7 +78,8 @@ export default function ViewSessionsScreen() {
 const styles = StyleSheet.create({
   counters: {
     flexDirection: 'row',
-    marginTop: 20,
+    padding: 20,
+    alignSelf: "center",
     fontSize: 25
   },
   styleChart: {
@@ -132,9 +89,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   buttonStyles: {
-    marginTop: 20,
-    width: 170, 
-    alignSelf:"center" ,
-  }
 
-})
+    width: 170, 
+    alignSelf: "center",
+    marginTop: 20
+  }
+ })

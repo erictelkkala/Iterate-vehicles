@@ -324,8 +324,6 @@ export default function BeginSession() {
             </React.Fragment>
           )}
         </Timer>
-        {/* New timer */}
-        <Text>{Timer1()}</Text>
       </View>
     </View>
   )

@@ -18,6 +18,7 @@ import ViewSingleSession from './components/ViewSingleSession'
 import { init } from './database/db'
 
 import * as Device from 'expo-device'
+import ViewSingleSession from './components/ViewSingleSession'
 
 // Initiating the database from ./database
 init()
