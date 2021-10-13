@@ -42,7 +42,7 @@ export default function BeginSession() {
   //This sends data to restful service
   async function addData() {
     const response = await fetch(
-      'http://10.0.2.2:8080/rest/counterservice/addjsonfish',
+      'https://monkesproject.appspot.com/rest/counterservice/addjsonfish',
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -66,6 +66,7 @@ export default function BeginSession() {
     console.log(responseData)
     setCounters((counters) => [...counters, responseData])
   }
+
   useEffect(() => {
     var date = new Date().getDate()
     var month = new Date().getMonth() + 1
