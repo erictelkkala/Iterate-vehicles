@@ -1,19 +1,15 @@
-import React, { useState } from 'react'
-import {
-  View,
-  Text,
-  FlatList,
-  Button,
-  StyleSheet,
-  Dimensions,
-} from 'react-native'
+import React, { useState, useEffect} from 'react'
+import { View, Text, FlatList, StyleSheet, Dimensions, } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { BarChart } from 'react-native-chart-kit'
 import { fetchAllInfo } from '../database/db'
+import * as Location from 'expo-location'
+import MapView, { Marker } from 'react-native-maps'
 
-export default function ViewSingleSession() {
+export default function LocalSession() {
   const navigation = useNavigation()
   const [readAllData, setInfo] = useState([])
+
   var index = 1
 
   async function readAllDataToo() {
@@ -25,9 +21,13 @@ export default function ViewSingleSession() {
         console.log(err)
       })
       .finally(() => {
-        console.log('All fish are read')
+        console.log('All cars are read')
       })
   }
+
+  useEffect(() => {
+    readAllDataToo();
+  }, [])
 
   return (
     <View
@@ -39,17 +39,11 @@ export default function ViewSingleSession() {
       }}
     >
       <View>
-        <Button title="Read all" onPress={readAllDataToo} />
         <FlatList
-          // keyExtractor={item=>item.id.toString()}
           keyExtractor={(item) => readAllData.indexOf(item).toString()}
           data={readAllData}
           renderItem={(itemData) => (
-            <View>
-              <Text style={styles.counters}>
-                SessionID: {itemData.item.SessionID}
-                {'  '}
-              </Text>
+        <View>
               <Text style={styles.counters}>
                 Date: {itemData.item.Date} {'  '}
                 Time: {itemData.item.endDate}
@@ -86,7 +80,29 @@ export default function ViewSingleSession() {
                   },
                 }}
               />
-            </View>
+                <View style={{flex: 1, paddingVertical: 20, borderBottomWidth: 5, borderBottomColor: "red"}}>
+                <MapView
+                    style={styles.mapView}
+                    provider="google"
+                    mapType="satellite"
+                    initialRegion={{
+                    latitude: itemData.item.latitude,
+                    longitude: itemData.item.longitude,
+                    // Set the initial zoom on the map
+                    latitudeDelta: 0.000001,
+                    longitudeDelta: 0.000001,
+                    }}
+                    >
+                    {/* Marker */}
+                    <Marker
+                   coordinate={{latitude: itemData.item.latitude,
+                    longitude: itemData.item.longitude}}
+                    title="My Place"
+                    description="Some description"
+                    />
+                </MapView>
+                </View>
+        </View>
           )}
         />
       </View>
@@ -96,12 +112,30 @@ export default function ViewSingleSession() {
 const styles = StyleSheet.create({
   counters: {
     flexDirection: 'row',
-    marginTop: 20,
+    padding: 20,
+    alignSelf: 'center',
+    fontSize: 25,
   },
   styleChart: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 20,
+  },
+  buttonStyles: {
+    width: 170,
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+  buttonStyles: {
+    width: 170,
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+  mapView: {
+    flex: 1,
+    alignSelf: "center",
+    width: Dimensions.get('window').width - 10,
+    height: 200,
   },
 })

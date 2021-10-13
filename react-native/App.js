@@ -14,9 +14,9 @@ import {
 import StartSessionsScreen from './components/Session'
 import BeginSession from './components/BeginSession'
 import ViewSessionsScreen from './components/ViewSessions'
-import ViewSingleSession from './components/ViewSingleSession'
+import LocalSession from './components/LocalSessions'
+import CloudSession from './components/CloudSessions'
 import { init } from './database/db'
-
 import * as Device from 'expo-device'
 
 // Initiating the database from ./database
@@ -91,10 +91,8 @@ function App() {
           <Stack.Screen name="Start Session" component={StartSessionsScreen} />
           <Stack.Screen name="View Sessions" component={ViewSessionsScreen} />
           <Stack.Screen name="Begin Session" component={BeginSession} />
-          <Stack.Screen
-            name="View Single Session"
-            component={ViewSingleSession}
-          />
+          <Stack.Screen name="Local Session" component={LocalSession} />
+          <Stack.Screen name="Cloud Session" component={CloudSession} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
