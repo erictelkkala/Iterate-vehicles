@@ -30,7 +30,14 @@ export default function ViewSingleSession() {
   }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', alignSelf: "center" }}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+      }}
+    >
       <View>
         <Button title="Read all" onPress={readAllDataToo} />
         <FlatList
@@ -45,7 +52,7 @@ export default function ViewSingleSession() {
               </Text>
               <Text style={styles.counters}>
                 Date: {itemData.item.Date} {'  '}
-                Time: {itemData.item.Timer}
+                Time: {itemData.item.endDate}
               </Text>
               <BarChart
                 style={styles.styleChart}
