@@ -14,12 +14,11 @@ import { add } from 'react-native-reanimated'
 import Timer, { getTimeParts } from 'react-compound-timer'
 import { v4 as uuidv4 } from 'uuid'
 import { useElapsedTime } from 'use-elapsed-time'
+import dayjs from 'dayjs'
 
 // Main function
-
 export default function BeginSession() {
   //Some variables for time being.
-
   var SessionID = uuidv4()
 
   // Theme import
@@ -81,11 +80,8 @@ export default function BeginSession() {
     setEndDate(endDateTime)
     console.log(endDateTime)
   }
+  
   useEffect(() => {
-    var date = new Date().getDate()
-    var month = new Date().getMonth() + 1
-    var year = new Date().getFullYear()
-    setDate(date + '/' + month + '/' + year)
     setLatitude(global.latitudeVar)
     setLongitude(global.longitudeVar)
   })

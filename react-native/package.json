@@ -11,6 +11,7 @@
     "@react-navigation/drawer": "^6.1.4",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.1.0",
+    "dayjs": "^1.10.7",
     "expo": "~42.0.4",
     "expo-device": "~3.3.0",
     "expo-location": "~12.1.2",
@@ -33,7 +34,6 @@
     "react-native-uuid": "^2.0.1",
     "react-native-web": "~0.14.13",
     "use-elapsed-time": "^3.0.2"
-
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
