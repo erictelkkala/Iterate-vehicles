@@ -1,18 +1,15 @@
 import React, { useState } from 'react'
-<<<<<<< Updated upstream
-import { View, Text, FlatList, Button, StyleSheet } from 'react-native'
-=======
 import {
   View,
   Text,
   FlatList,
+
   StyleSheet,
   Dimensions,
 } from 'react-native'
 import { Button } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { BarChart } from 'react-native-chart-kit'
->>>>>>> Stashed changes
 import { fetchAllInfo } from '../database/db'
 
 export default function ViewSessionsScreen() {
@@ -58,10 +55,41 @@ export default function ViewSessionsScreen() {
           data={readAllData}
           renderItem={(itemData) => (
             <View>
+              <BarChart
+                style={styles.styleChart}
+                data={{
+                  labels: ['Car', 'Bus', 'Trucks', 'Motorcycles'],
+                  datasets: [
+                    {
+                      data: [
+                        itemData.item.car,
+                        itemData.item.bus,
+                        itemData.item.trucks,
+                        itemData.item.motorcycles,
+                      ],
+                    },
+                  ],
+                }}
+                width={Dimensions.get('window').width - 10}
+                height={200}
+                yAxisInterval={2}
+                segments={3}
+                showValuesOnTopOfBars={true}
+                chartConfig={{
+                  decimalPlaces: 0,
+                  backgroundColor: '#1cc910',
+                  backgroundGradientFrom: '#6E32D1',
+                  backgroundGradientTo: '#6E32D1',
+                  color: (opacity = 255) => 'white',
+                  style: {
+                    borderRadius: 12,
+                    padding: 10,
+                  },
+                }}
+              />
               <Text style={styles.counters}>
                 Time: {itemData.item.Date} {' '}{itemData.item.Timer}
               </Text>
-<<<<<<< Updated upstream
               <Text style={styles.counters}>
                 SessionID: {itemData.item.SessionID}
                 {'  '}
@@ -71,13 +99,10 @@ export default function ViewSessionsScreen() {
                 {'  '}
                 latitude:{itemData.item.latitude}
                 {'  '}
+                Time: {itemData.item.Timer}
               </Text>
               <Text style={styles.counters}>
                 Date: {itemData.item.Date} {'  '}
-=======
-              <Text>
-                Map
->>>>>>> Stashed changes
               </Text>
               <Button
                 style={{ marginTop: 20, width: 170, alignSelf: "center" }}
@@ -100,8 +125,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 25
   },
-<<<<<<< Updated upstream
-=======
   styleChart: {
     flex: 1,
     alignItems: 'center',
@@ -113,5 +136,5 @@ const styles = StyleSheet.create({
     width: 170, 
     alignSelf:"center" ,
   }
->>>>>>> Stashed changes
+
 })
