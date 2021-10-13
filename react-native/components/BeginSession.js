@@ -14,14 +14,12 @@ import { add } from 'react-native-reanimated'
 import Timer, { getTimeParts } from 'react-compound-timer'
 import { v4 as uuidv4 } from 'uuid'
 import { useElapsedTime } from 'use-elapsed-time'
+import dayjs from 'dayjs'
 
 // Main function
-
 export default function BeginSession() {
   //Some variables for time being.
-  let UserID = 1
   var SessionID = uuidv4()
-  var Timervar = '12:21:00'
 
   // Theme import
   const theme = useTheme()
@@ -35,8 +33,7 @@ export default function BeginSession() {
   const [latitude, setLatitude] = useState(0.0)
   const [longitude, setLongitude] = useState(0.0)
   const [currentDate, setDate] = useState('')
-
-  // const [UserID, setUserID] = useState(0)
+  const [endDate, setEndDate] = useState('')
 
   //This sends data to restful service
   async function addData() {
@@ -51,11 +48,10 @@ export default function BeginSession() {
           trucks: truckCount,
           motorcycles: mopedCount,
           sessionId: SessionID,
-          userId: UserID,
           date: currentDate,
           longitude: longitude,
           latitude: latitude,
-          timer: '2',
+          endDate: endDate,
         }),
       }
     )
@@ -65,23 +61,48 @@ export default function BeginSession() {
     console.log(responseData)
     setCounters((counters) => [...counters, responseData])
   }
-
-  useEffect(() => {
-    // Sets the starting time
-    var today = new Date()
-    var date =
-      today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
+  const endDateSave = () => {
+    var endtime = new Date()
+    var endDateVar =
+      endtime.getFullYear() +
+      '-' +
+      (endtime.getMonth() + 1) +
+      '-' +
+      endtime.getDate()
     var time =
-      today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+      endtime.getHours() +
+      ':' +
+      endtime.getMinutes() +
+      ':' +
+      endtime.getSeconds()
     // Joining the two halves together
-    var dateTime = date + ' ' + time
-    setDate(dateTime)
-
+    var endDateTime = endDateVar + ' ' + time
+    setEndDate(endDateTime)
+    console.log(endDateTime)
+  }
+  
+  useEffect(() => {
     setLatitude(global.latitudeVar)
     setLongitude(global.longitudeVar)
   })
+
+  // Created a second useEffect hook since made the app hang if date functions were in the first one
+  useEffect(() => {
+    // Sets the starting time and adds 3 hours to it
+    // That's because Expo doesn't support Android intl components, so cannot use timezone functions
+    const start = dayjs().add(3, 'hour').toISOString()
+    setDate(start)
+    console.log('start:' + start)
+  }, [])
+
+  const SaveEndDate = () => {
+    const end = dayjs().add(3, 'hour').toISOString()
+    setEndDate(end)
+    console.log('End:' + end)
+  }
   //handler for results to send into sqlite database
   const ResultHandler = () => {
+    SaveEndDate();
     setCounters((counters) => [
       ...counters,
       {
@@ -93,7 +114,7 @@ export default function BeginSession() {
         date: setDate,
         longitude: setLongitude,
         latitude: setLatitude,
-        Timervar: Timervar,
+        endDate: setEndDate,
       },
     ])
 
@@ -124,11 +145,10 @@ export default function BeginSession() {
         busCount,
         truckCount,
         SessionID,
-        UserID,
         currentDate,
         longitude,
         latitude,
-        Timervar
+        endDate
       )
       console.log(dbResult)
     } catch (err) {

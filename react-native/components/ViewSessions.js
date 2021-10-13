@@ -33,6 +33,50 @@ export default function ViewSessionsScreen() {
         >
           Cloud Sessions
         </Button>
+        {/* FlatList for the local data */}
+        <FlatList
+          // keyExtractor={item=>item.id.toString()}
+          keyExtractor={(item) => readAllData.indexOf(item).toString()}
+          data={readAllData}
+          renderItem={(itemData) => (
+            <View>
+              <Text style={styles.counters}>
+                Date: {itemData.item.Date} {itemData.item.endDate}
+              </Text>
+              <Text>Map goes here</Text>
+              <Button
+                mode="contained"
+                style={styles.buttonStyles}
+                contentStyle={{ height: 60 }}
+                onPress={() => navigation.navigate('View Single Session')}
+              >
+                Details
+              </Button>
+            </View>
+          )}
+        />
+        {/* Flatlist for the data in the cloud */}
+        <FlatList
+          // keyExtractor={item=>item.id.toString()}
+          keyExtractor={(item) => cloudData.indexOf(item).toString()}
+          data={cloudData}
+          renderItem={(itemData) => (
+            <View>
+              <Text style={styles.counters}>
+                Date: {itemData.item.date} {itemData.item.endDate}
+              </Text>
+              <Text>Map goes here</Text>
+              <Button
+                mode="contained"
+                style={styles.buttonStyles}
+                contentStyle={{ height: 60 }}
+                onPress={() => navigation.navigate('View Single Session')}
+              >
+                Details
+              </Button>
+            </View>
+          )}
+        />
       </View>
     </View>
   )

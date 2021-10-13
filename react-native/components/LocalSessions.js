@@ -45,7 +45,8 @@ export default function LocalSession() {
           renderItem={(itemData) => (
         <View>
               <Text style={styles.counters}>
-                Date: {itemData.item.Date} {itemData.item.Timer}
+                Date: {itemData.item.Date} {'  '}
+                Time: {itemData.item.endDate}
               </Text>
               <BarChart
                 style={styles.styleChart}
