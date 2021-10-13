@@ -14,12 +14,11 @@ import { add } from 'react-native-reanimated'
 import Timer, { getTimeParts } from 'react-compound-timer'
 import { v4 as uuidv4 } from 'uuid'
 import { useElapsedTime } from 'use-elapsed-time'
+import dayjs from 'dayjs'
 
 // Main function
-
 export default function BeginSession() {
   //Some variables for time being.
-
   var SessionID = uuidv4()
   var Timervar = '12:21:00'
 
@@ -36,7 +35,6 @@ export default function BeginSession() {
   const [longitude, setLongitude] = useState(0.0)
   const [currentDate, setDate] = useState('')
   const [endDate, setEndDate] = useState('')
-
 
   //This sends data to restful service
   async function addData() {
@@ -66,19 +64,17 @@ export default function BeginSession() {
   }
 
   useEffect(() => {
-    // Sets the starting time
-    var today = new Date()
-    var date =
-      today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
-    var time =
-      today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
-    // Joining the two halves together
-    var dateTime = date + ' ' + time
-    setDate(dateTime)
-
     setLatitude(global.latitudeVar)
     setLongitude(global.longitudeVar)
   })
+
+  // Created a second useEffect hook since made the app hang if date functions were in the first one
+  useEffect(() => {
+    // Sets the starting time
+    const start = dayjs()
+    setDate(start)
+    console.log(start)
+  }, [])
   //handler for results to send into sqlite database
   const ResultHandler = () => {
     setCounters((counters) => [

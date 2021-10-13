@@ -70,6 +70,7 @@ export default function ViewSessionsScreen() {
         >
           Cloud Sessions
         </Button>
+        {/* FlatList for the local data */}
         <FlatList
           // keyExtractor={item=>item.id.toString()}
           keyExtractor={(item) => readAllData.indexOf(item).toString()}
@@ -91,6 +92,7 @@ export default function ViewSessionsScreen() {
             </View>
           )}
         />
+        {/* Flatlist for the data in the cloud */}
         <FlatList
           // keyExtractor={item=>item.id.toString()}
           keyExtractor={(item) => cloudData.indexOf(item).toString()}
