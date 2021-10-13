@@ -14,6 +14,7 @@ import {
 import StartSessionsScreen from './components/Session'
 import BeginSession from './components/BeginSession'
 import ViewSessionsScreen from './components/ViewSessions'
+import ViewSingleSession from './components/ViewSingleSession'
 import { init } from './database/db'
 
 import * as Device from 'expo-device'

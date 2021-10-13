@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { Button } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
+import { BarChart } from 'react-native-chart-kit'
 import { fetchAllInfo } from '../database/db'
 
 export default function ViewSessionsScreen() {
@@ -85,8 +86,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 20,
   },
   buttonStyles: {
+
     width: 170, 
     alignSelf: "center",
     marginTop: 20

@@ -5,10 +5,12 @@ import {
   TouchableHighlight,
   SafeAreaView,
   Alert,
+  ActivityIndicator,
 } from 'react-native'
 import { Avatar, Button, IconButton, Text, useTheme } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { addInfo, fetchAllInfo } from '../database/db'
+import { add } from 'react-native-reanimated'
 import Timer, { getTimeParts } from 'react-compound-timer'
 import { v4 as uuidv4 } from 'uuid'
 import { useElapsedTime } from 'use-elapsed-time'
@@ -34,8 +36,36 @@ export default function BeginSession() {
   const [longitude, setLongitude] = useState(0.0)
   const [currentDate, setDate] = useState('')
   const [currentTimer, setCurrentTimer] = useState('')
+
   // const [UserID, setUserID] = useState(0)
 
+  //This sends data to restful service
+  async function addData() {
+    const response = await fetch(
+      'http://10.0.2.2:8080/rest/counterservice/addjsonfish',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          car: carCount,
+          bus: busCount,
+          trucks: truckCount,
+          motorcycles: mopedCount,
+          sessionId: SessionID,
+          userId: UserID,
+          date: currentDate,
+          longitude: longitude,
+          latitude: latitude,
+          timer: '2',
+        }),
+      }
+    )
+
+    const responseData = await response.json()
+    console.log('This is the new entry')
+    console.log(responseData)
+    setCounters((counters) => [...counters, responseData])
+  }
   useEffect(() => {
     var date = new Date().getDate()
     var month = new Date().getMonth() + 1
@@ -44,7 +74,7 @@ export default function BeginSession() {
     setLatitude(global.latitudeVar)
     setLongitude(global.longitudeVar)
   })
-
+  //handler for results to send into sqlite database
   const ResultHandler = () => {
     setCounters((counters) => [
       ...counters,
@@ -60,7 +90,9 @@ export default function BeginSession() {
         Timervar: Timervar,
       },
     ])
+
     addResultsToDatabase()
+
     setTimeout(() => {
       Alert.alert(
         'Your session is successfully saved!',
@@ -75,8 +107,9 @@ export default function BeginSession() {
         ]
       )
     }, 10)
+    addData()
   }
-
+  //adding results to sqlite database
   async function addResultsToDatabase() {
     try {
       const dbResult = await addInfo(
