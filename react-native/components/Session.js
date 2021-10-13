@@ -17,10 +17,10 @@ export default function StartSessionsScreen() {
   const [mapRegion, setMapRegion] = useState({
     latitude: 60.976,
     longitude: 24.48,
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
+    latitudeDelta: 0,
+    longitudeDelta: 0.0421,
   })
-
+  const [mapType, setMapType] = useState('satellite')
   // Theme import
   const theme = useTheme()
 
@@ -59,7 +59,7 @@ export default function StartSessionsScreen() {
         ) : (
           <Button
             mode="contained"
-            style={{ width: 170, color: theme.colors.primary }}
+            style={{ width: 170 }}
             contentStyle={{ height: 60 }}
             onPress={getLocationHandler}
           >
@@ -83,13 +83,12 @@ export default function StartSessionsScreen() {
           <MapView
             style={styles.mapStyle}
             provider="google"
-            mapType="satellite"
+            mapType={mapType}
             initialRegion={{
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
-              // Set the initial zoom on the map
-              latitudeDelta: 0.004,
-              longitudeDelta: 0.004,
+              latitudeDelta: 0,
+              longitudeDelta: 0.0421,
             }}
           >
             {/* Marker */}
@@ -113,17 +112,23 @@ export default function StartSessionsScreen() {
 // Stylesheet
 const styles = StyleSheet.create({
   container: {
+    marginTop: 1,
     flex: 1,
   },
   dataView: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    flex: 1,
   },
   mapView: {
-    flex: 1.45,
+    flex: 2,
+    width: '100%',
   },
   mapStyle: {
-    flex: 1,
+    width: '100%',
+    height: '90%',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height - 250,
   },
 })

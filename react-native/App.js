@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import {
@@ -8,17 +8,14 @@ import {
   Colors,
   Provider as PaperProvider,
   DefaultTheme,
-  Text,
   useTheme,
 } from 'react-native-paper'
 import StartSessionsScreen from './components/Session'
 import BeginSession from './components/BeginSession'
 import ViewSessionsScreen from './components/ViewSessions'
-import ViewSingleSession from './components/ViewSingleSession'
 import { init } from './database/db'
 
 import * as Device from 'expo-device'
-import ViewSingleSession from './components/ViewSingleSession'
 
 // Initiating the database from ./database
 init()
@@ -92,7 +89,6 @@ function App() {
           <Stack.Screen name="Start Session" component={StartSessionsScreen} />
           <Stack.Screen name="View Sessions" component={ViewSessionsScreen} />
           <Stack.Screen name="Begin Session" component={BeginSession} />
-          <Stack.Screen name="View Single Session" component={ViewSingleSession} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

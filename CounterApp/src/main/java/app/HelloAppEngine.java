@@ -79,7 +79,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
 					f.setTrucks(RS.getInt("trucks"));
 
 					f.setMotorcycles(RS.getInt("motorcycles"));
-					f.setSessionId(RS.getString("SessionID"));
+					f.setSessionId(RS.getInt("SessionID"));
 					f.setUserId(RS.getInt("UserID"));
 					f.setDate(RS.getString("Date"));
 					f.setLongitude(RS.getFloat("longitude"));

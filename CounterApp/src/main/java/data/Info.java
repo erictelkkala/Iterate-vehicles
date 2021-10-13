@@ -10,12 +10,11 @@ public class Info {
 	private int trucks;
 
 	private int motorcycles;
-	private String sessionId;
+	private int sessionId;
 	private int userId;
 	private String date;
 	private float longitude;
 	private float latitude;
-	private String Timer;
 	
 	public int getId() {
 		return id;
@@ -106,16 +105,23 @@ public class Info {
 	/**
 	 * @return the sessionId
 	 */
-	public String getSessionId() {
+	public int getSessionId() {
 		return sessionId;
 	}
 	/**
 	 * @param sessionId the sessionId to set
 	 */
-	public void setSessionId(String sessionId) {
+	public void setSessionId(int sessionId) {
 		this.sessionId = sessionId;
 	}
-	
+	public void setSessionId(String s) {
+		try {
+			this.sessionId = Integer.parseInt(s);
+		}
+		catch(NumberFormatException e) {
+			sessionId=-1;
+		}
+	}
 	/**
 	 * @return the userId
 	 */
@@ -187,18 +193,6 @@ public class Info {
 		catch(NumberFormatException e) {
 			latitude=-1;
 		}
-	}
-	/**
-	 * @return the timer
-	 */
-	public String getTimer() {
-		return Timer;
-	}
-	/**
-	 * @param timer the timer to set
-	 */
-	public void setTimer(String timer) {
-		Timer = timer;
 	}
 }
 	
