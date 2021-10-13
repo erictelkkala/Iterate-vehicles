@@ -20,7 +20,6 @@ import dayjs from 'dayjs'
 export default function BeginSession() {
   //Some variables for time being.
   var SessionID = uuidv4()
-  var Timervar = '12:21:00'
 
   // Theme import
   const theme = useTheme()
@@ -62,7 +61,26 @@ export default function BeginSession() {
     console.log(responseData)
     setCounters((counters) => [...counters, responseData])
   }
-
+  const endDateSave = () => {
+    var endtime = new Date()
+    var endDateVar =
+      endtime.getFullYear() +
+      '-' +
+      (endtime.getMonth() + 1) +
+      '-' +
+      endtime.getDate()
+    var time =
+      endtime.getHours() +
+      ':' +
+      endtime.getMinutes() +
+      ':' +
+      endtime.getSeconds()
+    // Joining the two halves together
+    var endDateTime = endDateVar + ' ' + time
+    setEndDate(endDateTime)
+    console.log(endDateTime)
+  }
+  
   useEffect(() => {
     setLatitude(global.latitudeVar)
     setLongitude(global.longitudeVar)
