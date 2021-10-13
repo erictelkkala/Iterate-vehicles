@@ -21,7 +21,6 @@ export default function BeginSession() {
   //Some variables for time being.
 
   var SessionID = uuidv4()
-  var Timervar = '12:21:00'
 
   // Theme import
   const theme = useTheme()
@@ -53,7 +52,7 @@ export default function BeginSession() {
           date: currentDate,
           longitude: longitude,
           latitude: latitude,
-          endDate: '2',
+          endDate: endDate,
         }),
       }
     )
@@ -63,6 +62,25 @@ export default function BeginSession() {
     console.log(responseData)
     setCounters((counters) => [...counters, responseData])
   }
+  const endDateSave = () => {
+    var endtime = new Date()
+    var endDateVar =
+      endtime.getFullYear() +
+      '-' +
+      (endtime.getMonth() + 1) +
+      '-' +
+      endtime.getDate()
+    var time =
+      endtime.getHours() +
+      ':' +
+      endtime.getMinutes() +
+      ':' +
+      endtime.getSeconds()
+    // Joining the two halves together
+    var endDateTime = endDateVar + ' ' + time
+    setEndDate(endDateTime)
+    console.log(endDateTime)
+  }
   useEffect(() => {
     var date = new Date().getDate()
     var month = new Date().getMonth() + 1
@@ -71,6 +89,14 @@ export default function BeginSession() {
     setLatitude(global.latitudeVar)
     setLongitude(global.longitudeVar)
   })
+
+  // Created a second useEffect hook since made the app hang if date functions were in the first one
+  useEffect(() => {
+    // Sets the starting time
+    const start = dayjs().add(3, 'hour')
+    setDate(start)
+    console.log(start)
+  }, [])
   //handler for results to send into sqlite database
   const ResultHandler = () => {
     setCounters((counters) => [
@@ -84,7 +110,7 @@ export default function BeginSession() {
         date: setDate,
         longitude: setLongitude,
         latitude: setLatitude,
-        endDate: Timervar,
+        endDate: setEndDate,
       },
     ])
 
