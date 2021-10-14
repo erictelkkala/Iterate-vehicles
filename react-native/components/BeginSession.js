@@ -1,19 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import {
-  View,
-  StyleSheet,
-  TouchableHighlight,
-  SafeAreaView,
-  Alert,
-  ActivityIndicator,
-} from 'react-native'
+import { View, StyleSheet, Alert } from 'react-native'
 import { Avatar, Button, IconButton, Text, useTheme } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
-import { addInfo, fetchAllInfo } from '../database/db'
-import { add } from 'react-native-reanimated'
-import Timer, { getTimeParts } from 'react-compound-timer'
+import { addInfo } from '../database/db'
+import Timer from 'react-compound-timer'
 import { v4 as uuidv4 } from 'uuid'
-import { useElapsedTime } from 'use-elapsed-time'
 import dayjs from 'dayjs'
 
 // Main function
@@ -71,13 +62,13 @@ export default function BeginSession() {
   useEffect(() => {
     // Sets the starting time and adds 3 hours to it
     // That's because Expo doesn't support Android intl components, so cannot use timezone functions
-    const start = dayjs().add(3, 'hour').toISOString()
+    const start = dayjs().format('DD MMM YYYY HH:mm:ss')
     setDate(start)
     // console.log('start:' + start)
   }, [])
 
-    function SaveEndDate () {
-    const end = dayjs().add(3, 'hour').toISOString()
+  function SaveEndDate() {
+    const end = dayjs().format('DD MMM YYYY HH:mm:ss')
     setEndDate(end)
     // console.log('End:' + endDate)
   }
