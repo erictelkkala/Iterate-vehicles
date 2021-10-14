@@ -53,9 +53,13 @@ export default function CloudSession() {
           data={cloudData}
           renderItem={(itemData) => (
             <View>
-              <Text style={styles.counters}>
-                Date: {itemData.item.Date} {itemData.item.Timer}
+              <Text style={styles.StartDate}>
+                StartDate: {itemData.item.date}
               </Text>
+              <Text style={styles.StartDate}>
+                EndDate: {itemData.item.endDate}
+              </Text>
+
               <BarChart
                 style={styles.styleChart}
                 data={{
@@ -88,7 +92,14 @@ export default function CloudSession() {
                   },
                 }}
               />
-              <View style={{ flex: 1, paddingVertical: 20 }}>
+              <View
+                style={{
+                  flex: 1,
+                  paddingVertical: 20,
+                  borderBottomWidth: 5,
+                  borderBottomColor: 'red',
+                }}
+              >
                 <MapView
                   style={styles.mapView}
                   provider="google"
@@ -97,7 +108,7 @@ export default function CloudSession() {
                     latitude: itemData.item.latitude,
                     longitude: itemData.item.longitude,
                     // Set the initial zoom on the map
-                    latitudeDelta: 0.000001,
+                    latitudeDelta: 0.001,
                     longitudeDelta: 0.000001,
                   }}
                 >
@@ -120,11 +131,11 @@ export default function CloudSession() {
   )
 }
 const styles = StyleSheet.create({
-  counters: {
+  StartDate: {
     flexDirection: 'row',
     padding: 20,
     alignSelf: 'center',
-    fontSize: 25,
+    fontSize: 20,
   },
   styleChart: {
     flex: 1,
