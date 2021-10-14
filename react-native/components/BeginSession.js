@@ -61,26 +61,7 @@ export default function BeginSession() {
     console.log(responseData)
     setCounters((counters) => [...counters, responseData])
   }
-  const endDateSave = () => {
-    var endtime = new Date()
-    var endDateVar =
-      endtime.getFullYear() +
-      '-' +
-      (endtime.getMonth() + 1) +
-      '-' +
-      endtime.getDate()
-    var time =
-      endtime.getHours() +
-      ':' +
-      endtime.getMinutes() +
-      ':' +
-      endtime.getSeconds()
-    // Joining the two halves together
-    var endDateTime = endDateVar + ' ' + time
-    setEndDate(endDateTime)
-    console.log(endDateTime)
-  }
-  
+
   useEffect(() => {
     setLatitude(global.latitudeVar)
     setLongitude(global.longitudeVar)
@@ -92,17 +73,16 @@ export default function BeginSession() {
     // That's because Expo doesn't support Android intl components, so cannot use timezone functions
     const start = dayjs().add(3, 'hour').toISOString()
     setDate(start)
-    console.log('start:' + start)
+    // console.log('start:' + start)
   }, [])
 
-  const SaveEndDate = () => {
+    function SaveEndDate () {
     const end = dayjs().add(3, 'hour').toISOString()
     setEndDate(end)
-    console.log('End:' + end)
+    // console.log('End:' + endDate)
   }
   //handler for results to send into sqlite database
   const ResultHandler = () => {
-    SaveEndDate();
     setCounters((counters) => [
       ...counters,
       {
@@ -202,13 +182,6 @@ export default function BeginSession() {
     } else {
       settruckCount((truckCount) => truckCount + 1)
     }
-  }
-  // New timer function
-  const Timer1 = () => {
-    const { elapsedTime } = useElapsedTime({ isPlaying: true })
-
-    // Returns a rounded value of seconds
-    return Math.round(elapsedTime)
   }
 
   return (
@@ -327,7 +300,7 @@ export default function BeginSession() {
       {/* Save and exit button */}
       {/* Timer / Stopwatch */}
       <View style={styles.containerStopwatch}>
-        <Timer onStop={() => console.log('onStop hook')}>
+        <Timer onStop={() => (console.log('onStop hook'), SaveEndDate())}>
           {({ stop }) => (
             <React.Fragment>
               <Text style={{ fontSize: 25, marginBottom: 20 }}>

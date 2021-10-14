@@ -1,5 +1,5 @@
-import React, { useState, useEffect} from 'react'
-import { View, Text, FlatList, StyleSheet, Dimensions, } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { View, Text, FlatList, StyleSheet, Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { BarChart } from 'react-native-chart-kit'
 import { fetchAllInfo } from '../database/db'
@@ -35,7 +35,7 @@ export default function CloudSession() {
   }
 
   useEffect(() => {
-    fetchData();
+    fetchData()
   }, [])
 
   return (
@@ -52,7 +52,7 @@ export default function CloudSession() {
           keyExtractor={(item) => cloudData.indexOf(item).toString()}
           data={cloudData}
           renderItem={(itemData) => (
-        <View>
+            <View>
               <Text style={styles.counters}>
                 Date: {itemData.item.Date} {itemData.item.Timer}
               </Text>
@@ -88,29 +88,31 @@ export default function CloudSession() {
                   },
                 }}
               />
-                <View style={{flex: 1, paddingVertical: 20}}>
+              <View style={{ flex: 1, paddingVertical: 20 }}>
                 <MapView
-                    style={styles.mapView}
-                    provider="google"
-                    mapType="satellite"
-                    initialRegion={{
+                  style={styles.mapView}
+                  provider="google"
+                  mapType="satellite"
+                  initialRegion={{
                     latitude: itemData.item.latitude,
                     longitude: itemData.item.longitude,
                     // Set the initial zoom on the map
                     latitudeDelta: 0.000001,
                     longitudeDelta: 0.000001,
+                  }}
+                >
+                  {/* Marker */}
+                  <Marker
+                    coordinate={{
+                      latitude: itemData.item.latitude,
+                      longitude: itemData.item.longitude,
                     }}
-                    >
-                    {/* Marker */}
-                    <Marker
-                   coordinate={{latitude: itemData.item.latitude,
-                    longitude: itemData.item.longitude}}
                     title="My Place"
                     description="Some description"
-                    />
+                  />
                 </MapView>
-                </View>
-        </View>
+              </View>
+            </View>
           )}
         />
       </View>
@@ -142,7 +144,7 @@ const styles = StyleSheet.create({
   },
   mapView: {
     flex: 1,
-    alignSelf: "center",
+    alignSelf: 'center',
     width: Dimensions.get('window').width - 10,
     height: 200,
   },
