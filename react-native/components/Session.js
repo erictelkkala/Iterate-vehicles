@@ -6,8 +6,6 @@ import { useNavigation } from '@react-navigation/native'
 import { Button, useTheme } from 'react-native-paper'
 import * as Permissions from 'expo-permissions'
 
-let near = ''
-
 export default function StartSessionsScreen() {
   const navigation = useNavigation()
   const [location, setLocation] = useState(null)

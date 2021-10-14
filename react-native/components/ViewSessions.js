@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native'
 
 export default function ViewSessionsScreen() {
   const navigation = useNavigation()
-  var index = 1
 
   return (
     <View
