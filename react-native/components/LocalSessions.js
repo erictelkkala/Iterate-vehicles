@@ -44,9 +44,11 @@ export default function LocalSession() {
           data={readAllData}
           renderItem={(itemData) => (
             <View>
-              <Text style={styles.counters}>
-                Date: {itemData.item.Date} {'  '}
-                Time: {itemData.item.endDate}
+              <Text style={styles.StartDate}>
+                StartDate: {itemData.item.Date}
+              </Text>
+              <Text style={styles.StartDate}>
+                EndDate: {itemData.item.endDate}
               </Text>
               <BarChart
                 style={styles.styleChart}
@@ -96,7 +98,7 @@ export default function LocalSession() {
                     latitude: itemData.item.latitude,
                     longitude: itemData.item.longitude,
                     // Set the initial zoom on the map
-                    latitudeDelta: 0.000001,
+                    latitudeDelta: 0.001,
                     longitudeDelta: 0.000001,
                   }}
                 >
@@ -119,11 +121,11 @@ export default function LocalSession() {
   )
 }
 const styles = StyleSheet.create({
-  counters: {
+  StartDate: {
     flexDirection: 'row',
     padding: 20,
     alignSelf: 'center',
-    fontSize: 25,
+    fontSize: 20,
   },
   styleChart: {
     flex: 1,
